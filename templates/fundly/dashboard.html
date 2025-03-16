@@ -96,38 +96,40 @@
                                 <button class="btn btn-outline-primary" type="button">Export PDF</button>
                             </div>
                         </div>
-                        <table class="table table-responsive table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Tel No.</th>
-                                    <th>Mpesa Ref ID</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Balance</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if page.get_contributions %}
-                                {% for contribution in page.get_contributions %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ contribution.id }}</td>
-                                        <td>{{ contribution.user.get_full_name|default:'Unknown' }}</td>
-                                        <td>{{ contribution.get_hidden_phone}}</td>
-                                        <td>{{ contribution.mpesa_ref_id }}</td>
-                                        <td>{{ contribution.created_at|date:'d M Y' }}</td>
-                                        <td>{{ contribution.amount|intcomma|default:0 }}</td>
-                                        <td>{{ contribution.pg_balance|intcomma|default:0 }}</td>
+                                        <th class="text-nowrap">#</th>
+                                        <th class="text-nowrap">Name</th>
+                                        <th class="text-nowrap">Tel No.</th>
+                                        <th class="text-nowrap">Mpesa Ref ID</th>
+                                        <th class="text-nowrap">Date</th>
+                                        <th class="text-nowrap">Amount</th>
+                                        <th class="text-nowrap">Balance</th>
                                     </tr>
-                                {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="7">No Contribution yet</td>
-                                    </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {% if page.get_contributions %}
+                                    {% for contribution in page.get_contributions %}
+                                        <tr>
+                                            <td class="text-nowrap">{{ contribution.id }}</td>
+                                            <td class="text-nowrap">{{ contribution.user.get_full_name|default:'Unknown' }}</td>
+                                            <td class="text-nowrap">{{ contribution.get_hidden_phone}}</td>
+                                            <td class="text-nowrap">{{ contribution.mpesa_ref_id }}</td>
+                                            <td class="text-nowrap">{{ contribution.created_at|date:'d M Y' }}</td>
+                                            <td class="text-nowrap">{{ contribution.amount|intcomma|default:0 }}</td>
+                                            <td class="text-nowrap">{{ contribution.pg_balance|intcomma|default:0 }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7">No Contribution yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="col-12 my-2 pt-4">
                         <div class="d-flex align-items-center justify-content-between">
@@ -137,38 +139,40 @@
                                 <button class="btn btn-outline-primary" type="button">Export PDF</button>
                             </div>
                         </div>
-                        <table class="table table-responsive table-striped">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Tel No.</th>
-                                    <th>Amount</th>
-                                    <th>To Pay By</th>
-                                    <th>Balance</th>
-                                    <th>Created At</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% if page.get_pledges %}
-                                {% for pledge in page.get_pledges %}
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
                                     <tr>
-                                        <td>{{ pledge.id }}</td>
-                                        <td>{{ pledge.user.get_full_name|default:'Unknown' }}</td>
-                                        <td>{{ pledge.user.profile.get_hidden_phone }}</td>
-                                        <td>{{ pledge.amount|intcomma }}</td>
-                                        <td>{{ pledge.to_pay_by|date:'d M Y' }}</td>
-                                        <td>{{ pledge.balance|intcomma|default:0 }}</td>
-                                        <td>{{ pledge.created_at|date:'d M Y' }}</td>
+                                        <th class="text-nowrap">#</th>
+                                        <th class="text-nowrap">Name</th>
+                                        <th class="text-nowrap">Tel No.</th>
+                                        <th class="text-nowrap">Amount</th>
+                                        <th class="text-nowrap">To Pay By</th>
+                                        <th class="text-nowrap">Balance</th>
+                                        <th class="text-nowrap">Created At</th>
                                     </tr>
-                                {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td colspan="7">No Pledges Yet yet</td>
-                                    </tr>
-                                {% endif %}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {% if page.get_pledges %}
+                                    {% for pledge in page.get_pledges %}
+                                        <tr>
+                                            <td class="text-nowrap">{{ pledge.id }}</td>
+                                            <td class="text-nowrap">{{ pledge.user.get_full_name|default:'Unknown' }}</td>
+                                            <td class="text-nowrap">{{ pledge.user.profile.get_hidden_phone }}</td>
+                                            <td class="text-nowrap">{{ pledge.amount|intcomma }}</td>
+                                            <td class="text-nowrap">{{ pledge.to_pay_by|date:'d M Y' }}</td>
+                                            <td class="text-nowrap">{{ pledge.balance|intcomma|default:0 }}</td>
+                                            <td class="text-nowrap">{{ pledge.created_at|date:'d M Y' }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="7">No Pledges Yet yet</td>
+                                        </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>

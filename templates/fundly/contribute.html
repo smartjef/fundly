@@ -74,7 +74,7 @@
                                     <button class="nav-link theme-btn btn-style-two text-dark" id="paybill-tab" data-bs-toggle="tab" data-bs-target="#paybill" type="button" role="tab" aria-controls="paybill" aria-selected="false">Pay via Paybill</button>
                                 </li>
                             </ul>
-    
+                    
                             <!-- Horizontal Tab Content -->
                             <div class="tab-content mt-3">
                                 <div class="tab-pane fade show active" id="stk-push" role="tabpanel" aria-labelledby="stk-push-tab">
@@ -82,37 +82,47 @@
                                     <form method="POST">
                                         {% csrf_token %}
                                         <div class="mb-3">
-                                            <label for="phone" class="form-label">Phone Number</label>
-                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your M-Pesa phone number">
+                                            <label for="phone" class="form-label">Phone Number<span class="text-danger fw-bold">*</span></label>
+                                            <input type="text" class="form-control" id="phone" name="phone" required value="{{ request.user.profile.phone_number|default:'' }}" placeholder="Enter your M-Pesa phone number">
                                         </div>
                                         <div class="mb-3">
-                                            <label for="amount" class="form-label">Amount</label>
-                                            <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+                                            <label for="amount" class="form-label">Amount<span class="text-danger fw-bold">*</span></label>
+                                            <input type="number" class="form-control" id="amount" required name="amount" placeholder="Enter amount">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="pledge" class="form-label">Pledge ID(Optional)</label>
+                                            <input type="number" class="form-control" id="pledge" name="pledge" placeholder="Enter Pledge ID">
+                                            <span class="small">Use when honoring a pledge</span>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Pay Now</button>
                                     </form>
                                 </div>
-    
+                    
                                 <div class="tab-pane fade" id="paybill" role="tabpanel" aria-labelledby="paybill-tab">
                                     <h4>Pay via Paybill</h4>
                                     <p>Use the Paybill number below to send your contribution:</p>
                                     <ul>
-                                        <li><strong>Paybill:</strong> 123456</li>
-                                        <li><strong>Account Number:</strong> FUNDLY2025</li>
+                                        <li><strong>Paybill:</strong> {{ paybill|default:'123456' }}</li>
+                                        <li><strong>Account Number:</strong> {{ page.account_no }}</li>
                                     </ul>
-                                    <p>After payment, enter your transaction code below:</p>
+                                    <p>After payment, enter your M-Pesa Ref ID below:</p>
                                     <form method="POST">
                                         {% csrf_token %}
                                         <div class="mb-3">
-                                            <label for="transaction_code" class="form-label">Transaction Code</label>
-                                            <input type="text" class="form-control" id="transaction_code" name="transaction_code" placeholder="Enter M-Pesa transaction code">
+                                            <label for="mpesa_ref_id" class="form-label">M-Pesa Ref ID<span class="text-danger fw-bold">*</span></label>
+                                            <input type="text" class="form-control" id="mpesa_ref_id" name="mpesa_ref_id" required placeholder="Enter M-Pesa M-Pesa Ref ID">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="pledge" class="form-label">Pledge ID(Optional)</label>
+                                            <input type="number" class="form-control" id="pledge" name="pledge" placeholder="Enter Pledge ID">
+                                            <span class="small">Use when honoring a pledge</span>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
                             </div>
                         </div>
-    
+                    
                         <!-- Pledge Tab -->
                         <div class="tab-pane fade" id="pledge" role="tabpanel" aria-labelledby="pledge-tab">
                             <h4>Make a Pledge</h4>
@@ -123,7 +133,7 @@
                                 <button type="submit" class="btn btn-success">Make Pledge</button>
                             </form>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>

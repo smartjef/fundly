@@ -17,9 +17,10 @@
 						{% if request.user.is_authenticated %}
 							{% if request.user.is_staff %}
 								<li><a href="{% url 'admin:index' %}">Staff</a></li>
-								<li><a href="{% url 'mchango:index' %}">Client Portal</a></li>
-								<li><a href="{% url 'account_logout' %}">Logout</a></li>
 							{% endif %}
+							<li><a href="{% url 'mchango:index' %}">Campaigns</a></li>
+							<li><a href="{% url 'users:profile' %}">My Profile</a></li>
+							<li><a href="{% url 'account_logout' %}">Logout</a></li>
 						{% else %}				
 							<li><a href="{% url 'account_signup' %}">Register</a></li>
 							<li><a href="{% url 'account_login' %}">Login</a></li>

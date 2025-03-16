@@ -38,7 +38,7 @@ class ContributionPage(models.Model):
         if self.target < 50000:
             raise ValueError('Target must be at least 50,000')
         # validate deadline
-        if self.deadline < timezone.now():
+        if self.deadline < timezone.now().date():
             raise ValueError('Deadline must be in the future')
         
         if not self.pk:

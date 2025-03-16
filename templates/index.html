@@ -3,35 +3,6 @@
 
 
 <head>
-	<script src="https://www.googleoptimize.com/optimize.js?id=OPT-WNRBR7N"></script>
-	<!-- Google tag (gtag.js) -->
-	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10926755664"></script>
-	<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-
-		gtag('config', 'AW-10926755664');
-	</script>
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-99WZSD0FEW"></script>
-		<script>
-			window.dataLayer = window.dataLayer || [];
-			function gtag() { dataLayer.push(arguments); }
-			gtag('js', new Date());
-	
-			gtag('config', 'G-99WZSD0FEW');
-		</script>
-		<!-- Google Tag Manager -->
-		<script>(function (w, d, s, l, i) {
-				w[l] = w[l] || []; w[l].push({
-					'gtm.start':
-						new Date().getTime(), event: 'gtm.js'
-				}); var f = d.getElementsByTagName(s)[0],
-					j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-						'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-			})(window, document, 'script', 'dataLayer', 'GTM-TQNSKV7');</script>
-		<!-- End Google Tag Manager -->
 	{% include 'partials/home_meta.html' %}
 <!-- Stylesheets -->
 <link href="/static/css/bootstrap.min.css" rel="stylesheet">
@@ -55,9 +26,6 @@
 </head>
 
 <body>
-<!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQNSKV7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-<!-- End Google Tag Manager (noscript) -->
 <div class="page-wrapper">
 
 	<!-- Preloader -->
@@ -81,10 +49,11 @@
 					<ul class="useful-links">
 						{% if request.user.is_authenticated %}
 							{% if request.user.is_staff %}
-							<li><a href="{% url 'admin:index' %}">Staff</a></li>
-							<li><a href="{% url 'mchango:index' %}">Client Portal</a></li>
-							<li><a href="{% url 'account_logout' %}">Logout</a></li>
+								<li><a href="{% url 'admin:index' %}">Staff</a></li>
 							{% endif %}
+							<li><a href="{% url 'mchango:index' %}">Campaigns</a></li>
+							<li><a href="{% url 'users:profile' %}">My Profile</a></li>
+							<li><a href="{% url 'account_logout' %}">Logout</a></li>
 						{% else %}				
 							<li><a href="{% url 'account_signup' %}">Register</a></li>
 							<li><a href="{% url 'account_login' %}">Login</a></li>
