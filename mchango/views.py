@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import ContributionPageForm, PledgeForm
 from django.views.decorators.http import require_POST
+from django_daraja.mpesa.core import MpesaClient
 
 # Create your views here.
 @login_required
@@ -39,6 +40,19 @@ def contribute(request, slug):
     try:
         page = ContributionPage.objects.get(slug=slug, status__name='Active')
         form = PledgeForm()
+
+        if request.method == 'POST':
+            cl = MpesaClient()
+            phone_number = request.POST.get('phone')
+            amount = int(request.POST.get('amount'))
+            account_reference = page.account_no
+            transaction_desc = f'Contribution to  Campaing {page.getId()}'
+            callback_url = 'https://api.darajambili.com/express-payment'
+            response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
+            print(response)
+            messages.success(request, "STK Push Initiated Successfully!")
+            return redirect('mchango:dashboard', pk=page.id, slug=page.slug)
+        
         context = {
             'title': f"Contribute to Page {page.getId()}",
             'page': page,
