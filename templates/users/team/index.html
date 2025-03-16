@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Fundly Limited Team - Experts and Professional in the IT team{% endblock %}
+{% block meta %}
+	<meta name="title" content="Fundly Limited Team - Experts and Professional in the IT team">
+    <meta name="keywords" content="fundly,team, members, fundly team, limited, fundly mission, fundly history, fundly vision, about fundly, fundly team,  software development, custom software, IT consultation, software solutions, business productivity, cost-effective solutions, user experience, software industry, software company history, company background, company mission, company vision, software experts, software professionals">
+    <meta name="description" content="Learn more about Fundly Limited Team, a software company that officially started on 20th October 2022. We take the time to understand our clients' processes and goals, and create custom software solutions tailored to their specific needs.">
+{% endblock %}
+{% block content %}
+	<!-- Team Section -->
+	<section class="">
+		<div class="container pb-70">
+			<div class="row">
+				{% if teams %}
+					{% for team in teams %}
+						<!-- Team Block -->
+						<div class="team-block col-lg-4 col-md-6 col-sm-12">
+							<div class="inner-box mb-md-30">
+								<div class="image-box">
+									<figure class="image"><a href="{{ team.get_absolute_url }}"><img src="{% if team.image %}{{ team.image.url }}{% else %}/static/images/resource/team-1.jpg{% endif %}" alt="{{ team.user.get_full_name|default:'No Name'  }}"></a></figure>
+								</div>
+								<div class="info-box">
+									<h5 class="name"><a href="{{ team.get_absolute_url }}">{{ team.user.get_full_name|default:'No Name' }}</a></h5>
+									<span class="designation">{{ team.rank|default:'Member' }}</span>
+									<ul class="social-links">
+										{% if team.user.email %} 
+											<li><a href="mailto:{{ team.user.email }}"><i class="fa fa-envelope"></i></a></li>
+										{% endif %}
+										{% if team.user.profile.phone_number %} 
+											<li><a href="tel:{{ team.user.profile.phone_number }}"><i class="fa fa-phone"></i></a></li>
+										{% endif %}
+										{% if team.user.profile.twitter %} 
+											<li><a href="{{ team.user.profile.twitter }}"><i class="fab fa-twitter"></i></a></li>
+										{% endif %}
+										{% if team.user.profile.linkedin %}
+											<li><a href="{{ team.user.profile.linkedin }}"><i class="fab fa-linkedin"></i></a> </li>
+										{% endif %}
+										{% if team.user.profile.instagram %}
+											<li><a href="{{ team.user.profile.instagram }}"><i class="fab fa-instagram"></i></a> </li>
+										{% endif %}
+									</ul>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+				<div class="alert alert-info">
+					<p class="text-center font-weight-bold">No Team Provided</p>
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!--End Team Section -->
+{% endblock %}

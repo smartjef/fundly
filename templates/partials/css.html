@@ -1,0 +1,10 @@
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/style.css" rel="stylesheet">
+<link href="/static/css/responsive.css" rel="stylesheet">
+
+<!-- Dark Theme -->
+{% if request.user.is_authenticated and request.user.preferences.theme == 'dark' %}
+    <link href="/static/css/style-dark.css" id="themeLink" rel="stylesheet">
+{% else %}
+    <link href="" id="themeLink" rel="stylesheet">
+{% endif %}

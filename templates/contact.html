@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% block title %}Contact Fundly Limited - Get in touch with our software experts or leave feedback/query{% endblock %}
+{% block meta %}
+<meta name="title" content="Contact Fundly Limited - Get in touch with our software experts or leave feedback/query">
+<meta name="keyword" content="contact, Fundly Limited, software experts, phone, email, physical address, support, customer service, feedback, query, form">
+<meta name="description" content="Need to get in touch with Fundly Limited? Find our contact information including phone, email, physical address and feedback/query form on this page.">
+<meta name="next-head-count" content="5" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+{% endblock %}
+{% block content %}
+	<!--Contact Details Start-->
+	<section class="contact-details">
+		<div class="container ">
+			<div class="row">
+				<div class="col-xl-7 col-lg-6">
+					<div class="sec-title">
+						<span class="sub-title">Send us email</span>
+						<h2>Feel free to write</h2>
+					</div>
+					<!-- Contact Form -->
+					<form id="contact_form" name="contact_form" action="{% url 'contact' %}" method="post">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<input name="full_name" required class="form-control" type="text" placeholder="Enter Your Name">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<input name="user_email" required class="form-control required email" type="email" placeholder="Enter Your Email">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<input name="subject" required class="form-control required" type="text" placeholder="Enter Subject">
+								</div>
+							</div>
+							<div class="col-sm-6">
+								<div class="mb-3">
+									<input name="phone" class="form-control" type="text" placeholder="Enter Phone number">
+								</div>
+							</div>
+						</div>
+						<div class="mb-3">
+							<textarea name="message" class="form-control required" rows="7" placeholder="Enter Message"></textarea>
+						</div>
+						<div class="mb-3">
+							<button type="submit" class="theme-btn btn-style-one" data-loading-text="Please wait..."><span class="btn-title">Send message</span></button>
+							<!-- <button type="reset" class="theme-btn btn-style-one"><span class="btn-title">Reset</span></button> -->
+						</div>
+					</form>
+					<!-- Contact Form Validation-->
+				</div>
+				<div class="col-xl-5 col-lg-6">
+					<div class="contact-details__right">
+						<div class="sec-title">
+							<span class="sub-title">Need any help?</span>
+							<h2>Get in touch with us</h2>
+							<div class="text">Empowering contributions is not just a service for us, it's a mission. We deliver seamless solutions to help you achieve your goals and elevate your cause.</div>
+						</div>
+						<ul class="list-unstyled contact-details__info">
+							<li>
+								<div class="icon">
+									<span class="lnr-icon-phone-plus"></span>
+								</div>
+								<div class="text">
+									<h6>Have any question?</h6>
+									<a href="tel:{{ about.phone_number|default:'+254111724214' }}"><span>Free</span> {{ about.phone_number|default:'+254111724214' }}</a>
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<span class="lnr-icon-envelope1"></span>
+								</div>
+								<div class="text">
+									<h6>Write email</h6>
+									<a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a>
+								</div>
+							</li>
+							<li>
+								<div class="icon">
+									<span class="lnr-icon-location"></span>
+								</div>
+								<div class="text">
+									<h6>Visit anytime</h6>
+									<span>{{ about.address|default:'JKUAT Main Gate' }}</span>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Contact Details End-->
+	
+	{% include 'partials/map.html' %}
+
+{% endblock %}
+{% block js %}
+	<!-- form submit -->
+	<script src="/static/js/jquery.validate.min.js"></script>
+	<script src="/static/js/jquery.form.min.js"></script>
+{% endblock %}

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+	<script src="https://www.googleoptimize.com/optimize.js?id=OPT-WNRBR7N"></script>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=AW-10926755664"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'AW-10926755664');
+	</script>
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-99WZSD0FEW"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+			function gtag() { dataLayer.push(arguments); }
+			gtag('js', new Date());
+	
+			gtag('config', 'G-99WZSD0FEW');
+		</script>
+		<!-- Google Tag Manager -->
+		<script>(function (w, d, s, l, i) {
+				w[l] = w[l] || []; w[l].push({
+					'gtm.start':
+						new Date().getTime(), event: 'gtm.js'
+				}); var f = d.getElementsByTagName(s)[0],
+					j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+						'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+			})(window, document, 'script', 'dataLayer', 'GTM-TQNSKV7');</script>
+		<!-- End Google Tag Manager -->
+	{% include 'partials/home_meta.html' %}
+<!-- Stylesheets -->
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<link href="/static/css/style.css" rel="stylesheet">
+<link href="/static/css/responsive.css" rel="stylesheet">
+
+<!-- Dark Theme -->
+{% if request.user.is_authenticated and request.user.preferences.theme == 'dark' %}
+    <link href="/static/css/style-dark.css" id="themeLink" rel="stylesheet">
+{% else %}
+    <link href="" id="themeLink" rel="stylesheet">
+{% endif %}
+
+<link rel="shortcut icon" href="/static/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="/static/images/favicon.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+</head>
+
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TQNSKV7" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div class="page-wrapper">
+
+	<!-- Preloader -->
+	<!-- <div class="preloader"></div> -->
+
+	<!-- Main Header-->
+	<header class="main-header header-style-two">
+		<!-- Header Top -->
+		<div class="header-top">
+			<div class="inner-container">
+
+				<div class="top-left">
+					<!-- Info List -->
+					<ul class="list-style-one">
+						<li><i class="fa fa-envelope"></i> <a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						<li><i class="fa fa-map-marker"></i> {{ about.address|default:'JKUAT, Main Gate' }}</li>
+					</ul>
+				</div>
+
+				<div class="top-right">
+					<ul class="useful-links">
+						{% if request.user.is_authenticated %}
+							{% if request.user.is_staff %}
+							<li><a href="{% url 'admin:index' %}">Staff</a></li>
+							<li><a href="{% url 'mchango:index' %}">Client Portal</a></li>
+							<li><a href="{% url 'account_logout' %}">Logout</a></li>
+							{% endif %}
+						{% else %}				
+							<li><a href="{% url 'account_signup' %}">Register</a></li>
+							<li><a href="{% url 'account_login' %}">Login</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="outer-box">
+				<ul class="social-icon-one">
+					<li><a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><span class="fab fa-twitter"></span></a></li>
+					<li><a href="{{ about.facebook|default:'https://fb.com' }}"><span class="fab fa-facebook-square"></span></a></li>
+					<li><a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><span class="fab fa-linkedin"></span></a></li>
+					<li><a href="{{ about.youtube|default:'https://www.youtube.com/channel/UCkedAOBJuj9d0cvTKFzWqmA?sub_confirmation=1' }}"><span class="fab fa-youtube"></span></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- Header Top -->
+
+		<!-- Header Lower -->
+		<div class="header-lower">
+			<!-- Main box -->
+			<div class="main-box">
+				<div class="logo-box">
+					<div class="logo"><a href="/"><img src="/static/images/logo-2.png" alt="Fundly Limited" width="120" title="Fundly Limited"></a></div>
+				</div>
+
+				<!--Nav Box-->
+				<div class="nav-outer">
+
+					<nav class="nav main-menu">
+						<ul class="navigation">
+							<li class="{% if title == 'Homepage' %}current{% endif %}"><a href="/">Home</a></li>
+							<li class="dropdown {% if title == 'About Us' or title == 'Projects' or title == 'Team Members' or title == 'Testimonies' or title == 'FAQs' or title == 'Our Services' or category == 'services' %}current{% endif %}"><a href="#">About</a>
+								<ul>
+									<li><a href="{% url 'about' %}">About</a></li>
+									<li><a href="{% url 'project:list' %}">Projects</a></li>
+									<li><a href="{% url 'users:team' %}">Team</a></li>
+									<li><a href="{% url 'testimonies' %}">Testimonial</a></li>
+									<li><a href="{% url 'services:list' %}">Services</a></li>
+									<li><a href="{% url 'faq' %}">FAQ</a></li>
+									
+								</ul>
+							</li>
+							<li class="{% if title == 'Blogs' or category == 'Blogs > Test Category' %}current{% endif %}"><a href="{% url 'blog:list' %}">Blogs</a></li>
+							<li class="{% if title == 'Contact Us' %}current{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
+							<li><a href="{% url 'mchango:index' %}">Campaigns</a></li>
+							{% if request.user.is_staff %}
+								<li><a href="{% url 'admin:index' %}">Staff Portal</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+					<!-- Main Menu End-->
+
+					<div class="outer-box">
+						<a href="tel:{{ about.phone_number|default:'+254111724214' }}" class="info-btn">
+							<i class="icon fa fa-phone"></i>
+							<small>Call Anytime</small><br> {{ about.phone_number|default:'+254111724214' }}
+						</a>
+
+						<a href="{% url 'docs' %}" class="theme-btn btn-style-one"><span class="btn-title">View Documents</span></a>
+
+						<!-- Mobile Nav toggler -->
+						<div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Header Lower -->
+
+		{% include 'partials/mobile_search_header.html' %}
+
+	</header>
+	<!--End Main Header -->
+	{% include 'partials/messages.html' %}
+	<!-- Banner Section Two-->
+	<section class="banner-section">
+		<div class="banner-carousel owl-carousel owl-theme">
+			<!-- Slide Item -->
+			<div class="slide-item">
+				<div class="bg-image" style="background-image: url(/static/images/main-slider/slider-1.jpeg);"></div>
+				<div class="auto-container">
+					<div class="content-box">
+						<span class="sub-title animate-1">Powering Contributions</span>
+						<h1 class="title animate-2">Fundraising <br>Made Easy</h1>
+						<div class="btn-box animate-3">
+							<a href="{% url 'about' %}" class="theme-btn btn-style-one"><span class="btn-title">Explore More</span></a>
+							<a href="https://youtu.be/Oz-SvGZsTNc" class="play-btn lightbox-image"><i class="icon fa fa-play"></i> Watch Video</a>
+						</div>
+					</div>
+				</div>
+			</div>
+	
+			<!-- Slide Item -->
+			<div class="slide-item">
+				<div class="bg-image" style="background-image: url(/static/images/main-slider/slider-3.jpeg);"></div>
+				<div class="auto-container">
+					<div class="content-box">
+						<span class="sub-title animate-1">Fund Together</span>
+						<h1 class="title animate-2">Empowering <br>Your Cause</h1>
+						<div class="btn-box animate-3">
+							<a href="{% url 'about' %}" class="theme-btn btn-style-one"><span class="btn-title">Explore More</span></a>
+							<a href="https://youtu.be/Oz-SvGZsTNc" class="play-btn lightbox-image"><i class="icon fa fa-play"></i> Watch Video</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!--END Banner Section Two -->
+
+	<!-- Features Section Two -->
+	<section class="features-section-two pt-0">
+		<div class="auto-container">
+			<div class="row justify-content-center">
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-011-dollar"></i>
+						<h6 class="title"><a href="">Fast Donations</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-049-presentation"></i>
+						<h6 class="title"><a href="">Medical Support</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-061-meeting"></i>
+						<h6 class="title"><a href="">Education Funds</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-030-settings"></i>
+						<h6 class="title"><a href="">Causes</a></h6>
+					</div>
+				</div>				
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-054-graph"></i>
+						<h6 class="title"><a href="">Nonprofits</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-020-hierarchy"></i>
+						<h6 class="title"><a href="">Crowdfunding</a></h6>
+					</div>
+				</div>
+			</div>
+	
+			<div class="bottom-text">
+				Fundly makes fundraising simple and impactful. <a href="{% url 'mchango:index' %}" class="theme-btn btn-style-one small"><span class="btn-title">Start a Campaign</span></a>
+			</div>
+		</div>
+	</section>	
+	<!-- End Features Section Two -->
+
+	<!-- About Section Three -->
+	<section class="about-section-three">
+		<div class="auto-container">
+			<div class="row">
+				<div class="content-column col-lg-6 col-md-12 col-sm-12 wow fadeInRight" data-wow-delay="600ms">
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">Welcome to Fundly</span>
+							<h2>Unlock the Power of Giving</h2>
+							<h5>Seamless fundraising for a greater impact.</h5>
+							<div class="text">
+								Fundly makes fundraising simple, secure, and accessible for everyone. Whether you're raising money for medical bills, education, community projects, or emergencies, we provide the tools to help you succeed. Join us in making a difference today!
+							</div>
+						</div>
+	
+						<div class="content-box">
+							<div class="row">
+								<div class="about-block-three col-lg-6 col-md-6 col-sm-12">
+									<h5 class="title"><i class="icon fa fa-arrow-alt-circle-right"></i> Mission</h5>
+									<p class="text">To empower individuals and organizations to raise funds effortlessly and transparently.</p>
+								</div>
+	
+								<div class="about-block-three col-lg-6 col-md-6 col-sm-12">
+									<h5 class="title"><i class="icon fa fa-arrow-alt-circle-right"></i> Vision</h5>
+									<p class="text">To be the leading platform for hassle-free and impactful fundraising.</p>
+								</div>
+							</div>
+	
+							<!--Skills-->
+							<div class="skills">
+								<!--Skill Item-->
+								<div class="skill-item">
+									<div class="skill-header">
+										<h6 class="skill-title">Fundraising Success</h6>
+									</div>
+									<div class="skill-bar">
+										<div class="bar-inner">
+											<div class="bar progress-line" data-width="98">
+												<div class="skill-percentage">
+													<div class="count-box"><span class="count-text" data-speed="3000" data-stop="98">0</span>%</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="btn-box">
+								<a href="{% url 'about' %}" class="theme-btn btn-style-one"><span class="btn-title">Discover More</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Image Column -->
+				<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="inner-column wow fadeInLeft">
+						<figure class="image-1 overlay-anim wow fadeInUp"><img src="/static/images/resource/about-1.jpg" alt="Fundly Impact"></figure>
+						<figure class="image-2 overlay-anim wow fadeInRight"><img src="/static/images/resource/image-3.jpg" alt="Fundly Community"></figure>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!--Emd About Section Two -->
+	<!-- Project Section -->
+	{% if projects %}
+	<section class="project-section-two">
+		<div class="auto-container">
+			<div class="sec-title text-center">
+				<span class="sub-title">Our Projects</span>
+				<h2>Making a Difference, One Project at a Time</h2>
+			</div>
+
+			<div class="carousel-outer">
+				<!-- Prject Carousel -->
+				<div class="project-carousel-two owl-carousel owl-theme">
+					<!-- Project Block Two -->
+					{% for project in projects %}
+					<div class="project-block-two">
+						<div class="inner-box">
+							<div class="image-box">
+								<figure class="image"><a href="{% if project.front_image %}{{ project.front_image.url }}{% else %}/static/images/resource/project-1.jpg{% endif %}" class="lightbox-image"><img src="{% if project.front_image %}{{ project.front_image.url }}{% else %}/static/images/resource/project-1.jpg{% endif %}" alt=""></a></figure>
+							</div>
+							<div class="content-box">
+								<h5 class="title"><a href="{{ project.get_absolute_url }}">{{ project.title|default:'Unknown'|truncatechars:30 }}</a></h5>
+								<span class="cat">{{ project.category }} - {{ project.get_status }}</span>
+								<a href="{{ project.get_absolute_url }}" class="icon"><i class="fa fa-long-arrow-alt-right"></i></a>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</section>
+	{% endif %}
+	<!--End Project Section -->
+	<!-- Offer Section Two -->
+	<section class="offer-section-two">
+		<div class="auto-container">
+			<div class="row">
+				<!-- Content Column -->
+				<div class="content-column col-lg-6 col-md-12">
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">FUNDRAISING MADE SIMPLE</span>
+							<h2>The Best Platform for Impactful Giving</h2>
+						</div>
+						<div class="info-box">
+							<span class="count">01</span>
+							<div class="text">Fundly empowers individuals and organizations to raise funds effortlessly for medical bills, education, community projects, and emergencies.</div>
+						</div>
+						<div class="info-box">
+							<span class="count">02</span>
+							<div class="text">We provide a secure and transparent platform, ensuring every donation makes a difference where it matters most.</div>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Image Column -->
+				<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="inner-column">
+						<div class="image-box">
+							<figure class="image"><img src="/static/images/resource/image-3.jpg" alt="Fundly Fundraising"></figure>
+							<div class="video-box wow fadeIn">
+								<h4 class="title">Watch How It Works</h4>
+								<img class="arrow-icon" src="/static/images/icons/icon-arrow.png" alt="">
+								<a href="https://youtu.be/Oz-SvGZsTNc" class="play-btn lightbox-image"><i class="icon fa fa-play"></i></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!-- End Offer Section -->
+
+	<!-- Fun Fact Section -->
+	<section class="fun-fact-section-two">
+		<div class="auto-container">
+			<div class="fact-counter">
+				<div class="row">
+					<!-- Counter Block Two-->
+					<div class="counter-block-two col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+						<div class="inner">
+							<i class="icon flaticon-business-060-graph"></i>
+							<div class="count-box"><span class="count-text" data-speed="3000" data-stop="120">0</span></div>
+							<h6 class="counter-title">Successful Fundraisers</h6>
+						</div>
+					</div>
+	
+					<!-- Counter Block Two-->
+					<div class="counter-block-two col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="300ms">
+						<div class="inner">
+							<i class="icon flaticon-business-035-helpline"></i>
+							<div class="count-box"><span class="count-text" data-speed="3000" data-stop="5000">0</span></div>
+							<h6 class="counter-title">Total Contributors</h6>
+						</div>
+					</div>
+	
+					<!-- Counter Block Two-->
+					<div class="counter-block-two col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="600ms">
+						<div class="inner">
+							<i class="icon flaticon-business-020-hierarchy"></i>
+							<div class="count-box"><span class="count-text" data-speed="3000" data-stop="95">0</span></div>
+							<h6 class="counter-title">Success Rate (%)</h6>
+						</div>
+					</div>
+	
+					<!-- Counter Block Two-->
+					<div class="counter-block-two col-lg-3 col-md-6 col-sm-12 wow fadeInUp" data-wow-delay="900ms">
+						<div class="inner">
+							<i class="icon flaticon-business-048-coin"></i>
+							<div class="count-box"><span class="count-text" data-speed="3000" data-stop="10">0</span></div>
+							<h6 class="counter-title">Million Raised</h6>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!-- End Fun Fact Section -->
+
+	<!-- About Section four -->
+	<section class="about-section-four">
+		<div class="auto-container">
+			<div class="row">
+				<div class="content-column col-lg-6 col-md-12 col-sm-12 order-2 wow fadeInRight" data-wow-delay="600ms">
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">Making Fundraising Effortless</span>
+							<h2>Empowering Change, One Contribution at a Time</h2>
+							<div class="text">
+								Fundly provides a seamless, secure, and transparent platform for individuals and organizations to raise funds for medical bills, education, community projects, and emergencies. Join us in making an impact and turning generosity into real change.
+							</div>
+						</div>
+	
+						<blockquote class="blockquote-style-one">"Every donation counts. At Fundly, we bridge the gap between generosity and those in need, making giving simple and impactful." - Manager</blockquote>
+	
+						<div class="btn-box d-flex">
+							<a href="{% url 'about' %}" class="theme-btn btn-style-one"><span class="btn-title">Discover More</span></a>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Image Column -->
+				<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="inner-column wow fadeInLeft">
+						<span class="float-text">Fundly</span>
+						<figure class="image-1 overlay-anim wow fadeInUp"><img src="/static/images/resource/about-2.jpg" alt="Fundly Community"></figure>
+						<figure class="image-2 overlay-anim wow fadeInRight"><img src="/static/images/resource/about-1.jpg" alt="Fundly Fundraising"></figure>
+						<div class="icon-box"><img src="/static/images/resource/icon-logo-2.png" alt="Fundly Logo"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>	
+	<!--Emd About Section four -->
+
+	{% include 'partials/clients/1.html' %}
+	{% if services %}
+	<!-- Features Section Three -->
+	<section class="features-section-three">
+		<div class="carousel-outer">
+			<div class="features-carousel owl-carousel owl-theme">
+				{% for service in services %}
+				<!-- Feature Block Three -->
+				<div class="feature-block-three">
+					<div class="inner-box ">
+						<figure class="image">
+							<a href="{{ service.get_absolute_url }}"><img src="{% if service.front_image %}{{ service.front_image.url }}{% else %}/static/images/resource/service-1.jpg{% endif %}" alt="{{ service }}" style="max-width: 220px !important; min-height: 220px !important;" title="{{ service }}"></a>
+							<span class="icon">FL</span>
+						</figure>
+						<h4 class="title"><a href="{{ service.get_absolute_url }}">{{ service }}</a></h4>
+						<div class="text">{{ service.description|truncatechars:120 }}</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- End Features Section Two -->
+	{% endif %}
+	<!-- Services Section Two -->
+	<section class="services-section-two">
+		<div class="auto-container">
+			<div class="row">
+				<div class="title-column col-lg-5 col-md-12">
+					<div class="sec-title light">
+						<span class="sub-title">What we offer</span>
+						<h2>Empower Your Cause with <br> "Give. Elevate."</h2>
+						<a href="{% url 'services:list' %}" class="theme-btn btn-style-one">
+							<span class="btn-title">Discover more</span>
+						</a>
+					</div>
+				</div>
+	
+				<div class="services-column col-lg-7 col-md-12">
+					<div class="inner-column">
+						<!-- Services Carousel Two -->
+						<div class="swiper-container services-carousel-two">
+							<div class="swiper-wrapper">
+								<!-- Service Block Two -->
+								<div class="swiper-slide service-block-two">
+									<div class="inner-box">
+										<div class="icon fa fa-globe"></div>
+										<h6 class="title"><a href="">Contribution Profiles</a></h6>
+									</div>
+								</div>
+	
+								<!-- Service Block Two -->
+								<div class="swiper-slide service-block-two">
+									<div class="inner-box">
+										<div class="icon fab fa-apple"></div>
+										<h6 class="title"><a href="">Payment Links</a></h6>
+									</div>
+								</div>
+	
+								<!-- Service Block Two -->
+								<div class="swiper-slide service-block-two">
+									<div class="inner-box">
+										<div class="icon fab fa-android"></div>
+										<h6 class="title"><a href="">Real-Time Tracking</a></h6>
+									</div>
+								</div>
+	
+								<!-- Service Block Two -->
+								<div class="swiper-slide service-block-two">
+									<div class="inner-box">
+										<div class="icon fab fa-ioxhost"></div>
+										<h6 class="title"><a href="">Pledge Management</a></h6>
+									</div>
+								</div>
+	
+								<!-- Service Block Two -->
+								<div class="swiper-slide service-block-two">
+									<div class="inner-box">
+										<div class="icon fa fa-tv"></div>
+										<h6 class="title"><a href="">Detailed Reports</a></h6>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Services Section Two-->
+
+	<!-- Locations Section -->
+	<section class="locations-section">
+		<div class="auto-container">
+			<div class="sec-title text-center">
+				<span class="sub-title">Visit Us Today</span>
+				<h2>Our Locations</h2>
+			</div>
+			<div class="map-box">
+				<figure class="map"><img src="/static/images/icons/dotted-map.png" alt=""></figure>
+				<!-- Location 1-->
+				<div class="location location-1">
+					<span class="location-dot"></span>
+					<div class="location-info">
+						<ul class="info-list">
+							<li><a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a></li>
+							<li>{{ about.address|default:'JKUAT, Main Gate' }}</li>
+							<li><a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Location 2-->
+				<div class="location location-2">
+					<span class="location-dot"></span>
+					<div class="location-info">
+						<ul class="info-list">
+							<li><a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a></li>
+							<li>{{ about.address|default:'JKUAT, Main Gate' }}</li>
+							<li><a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Location 3-->
+				<div class="location location-3 align-center">
+					<span class="location-dot"></span>
+					<div class="location-info">
+						<ul class="info-list">
+							<li><a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a></li>
+							<li>{{ about.address|default:'JKUAT, Main Gate' }}</li>
+							<li><a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Location 4-->
+				<div class="location location-4 align-right">
+					<span class="location-dot"></span>
+					<div class="location-info">
+						<ul class="info-list">
+							<li><a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a></li>
+							<li>{{ about.address|default:'JKUAT, Main Gate' }}</li>
+							<li><a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Location 5-->
+				<div class="location location-5 align-right">
+					<span class="location-dot"></span>
+					<div class="location-info">
+						<ul class="info-list">
+							<li><a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a></li>
+							<li>{{ about.address|default:'JKUAT, Main Gate' }}</li>
+							<li><a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Locations Section -->
+
+	<!-- Why Choose Us -->
+	<section class="why-choose-us">
+		<div class="auto-container">
+			<div class="row">
+				<div class="content-column col-lg-6 col-md-12 col-sm-12 wow fadeInRight"
+					data-wow-delay="600ms">
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">Why you should choose us</span>
+							<h2>Trusted by Over <span class="color2">5000</span><br> Contributors</h2>
+						</div>
+	
+						<div class="image-box">
+							<figure class="image overlay-anim"><img src="/static/images/resource/image-2.jpg" alt=""></figure>
+							<div class="caption">Empowering Contributions with Ease</div>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Image Column -->
+				<div class="image-column col-lg-6 col-md-12 col-sm-12">
+					<div class="inner-column wow fadeInLeft">
+						<figure class="image overlay-anim wow fadeInUp"><img src="/static/images/resource/image-1.jpg" alt="">
+						</figure>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Emd Why Choose Us -->
+
+	<!-- Contact Section -->
+	<section class="contact-section">
+		<div class="auto-container">
+			<div class="row">
+				<!-- Image Column -->
+				<div class="image-column col-lg-6 col-md-12 col-sm-12 order-4">
+					<div class="inner-column">
+						<div class="image-box">
+							<figure class="image"><img src="/static/images/resource/contact.jpg" alt=""></figure>
+							<div class="info-box">
+								<span class="icon flaticon-business-035-helpline"></span>
+								<span class="sub-title">Call us and book now</span>
+								<h3 class="title"><a href="tel:{{ about.phone_number|default:'0111724214' }}">{{ about.phone_number|default:'0111724214' }}</a></h3>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Form Column -->
+				<div class="form-column col-lg-6 col-md-12 col-sm-12">
+					<div class="form-bg" style="background-image: url(/static/images/background/3.jpg)"></div>
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">Connect with us</span>
+							<h2>Feel free to contact us with any questions.</h2>
+							<div class="text">
+								Empowering contributions is not just a service for us, it's a mission. We deliver seamless solutions to help you achieve your goals.
+							</div>
+						</div>
+	
+						<!-- Contact Form -->
+						<div class="contact-form-two wow fadeInLeft">
+							<!--Contact Form-->
+							<form method="post" action="{% url 'contact' %}" id="contact-form">
+								{% csrf_token %}
+								<div class="row">
+									<div class="form-group col-lg-6 col-md-12">
+										<input type="text" name="full_name" placeholder="Full Name" required>
+									</div>
+									<div class="form-group col-lg-6 col-md-12">
+										<input type="text" name="user_email" placeholder="Email Address" required>
+									</div>
+									<div class="form-group col-lg-6 col-md-12">
+										<input type="text" name="phone" placeholder="Your Phonenumber" required>
+									</div>
+									<div class="form-group col-lg-6 col-md-12">
+										<input type="text" name="subject" placeholder="Enter Subject" required>
+									</div>
+									<div class="form-group col-lg-12 col-md-12">
+										<button class="theme-btn btn-style-one" type="submit" name="submit-form"><span class="btn-title">Send a message</span></button>
+									</div>
+								</div>
+							</form>
+						</div>
+						<!--End Contact Form -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End FAQ Section -->
+
+	{% include 'partials/blogs.html' %}
+
+	<!-- Call To Action Three -->
+	<section class="call-to-action-three p-0">
+		<div class="auto-container">
+			<div class="outer-box">
+				<div class="title-box">
+					<span class="icon fa fa-hand-holding-heart"></span>
+					<h5 class="title">Need help with contributions & pledges?</h5>
+				</div>
+				<div class="btn-box">
+					<a href="{% url 'services:list' %}" class="theme-btn btn-style-one bg-light"><span class="btn-title">get started</span></a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End Call To Action Three -->
+
+	{% include 'partials/map.html' %}
+	{% include 'partials/footer.html' %}
+</div><!-- End Page Wrapper -->
+
+<!-- Scroll To Top -->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+<script src="/static/js/jquery.js"></script> 
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.fancybox.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<script src="/static/js/wow.js"></script>
+<script src="/static/js/appear.js"></script>
+<script src="/static/js/select2.min.js"></script>
+<script src="/static/js/swiper.min.js"></script>
+<script src="/static/js/owl.js"></script>
+<script src="/static/js/script.js"></script>
+{% include 'partials/theme-script.html' %}
+{% include 'partials/chat-bot.html' %}
+</body>
+<!-- index-2,  18:20:58 GMT -->
+</html>

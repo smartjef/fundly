@@ -1,0 +1,97 @@
+	<!-- Main Header-->
+	<header class="main-header header-style-one">
+		<!-- Header Top -->
+		<div class="header-top">
+			<div class="inner-container">
+
+				<div class="top-left">
+					<!-- Info List -->
+					<ul class="list-style-one">
+						<li><i class="fa fa-envelope"></i> <a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						<li><i class="fa fa-map-marker"></i> {{ about.address|default:'JKUAT, Main Gate' }}</li>
+					</ul>
+				</div>
+
+				<div class="top-right">
+					<ul class="useful-links">
+						{% if request.user.is_authenticated %}
+							{% if request.user.is_staff %}
+								<li><a href="{% url 'admin:index' %}">Staff</a></li>
+								<li><a href="{% url 'mchango:index' %}">Client Portal</a></li>
+								<li><a href="{% url 'account_logout' %}">Logout</a></li>
+							{% endif %}
+						{% else %}				
+							<li><a href="{% url 'account_signup' %}">Register</a></li>
+							<li><a href="{% url 'account_login' %}">Login</a></li>
+						{% endif %}
+					</ul>
+				</div>	
+			</div>
+
+			<div class="outer-box">
+				<ul class="social-icon-one">
+					<li><a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><span class="fab fa-twitter"></span></a></li>
+					<li><a href="{{ about.facebook|default:'https://fb.com' }}"><span class="fab fa-facebook-square"></span></a></li>
+					<li><a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><span class="fab fa-linkedin"></span></a></li>
+					<li><a href="{{ about.youtube|default:'https://www.youtube.com/channel/UCkedAOBJuj9d0cvTKFzWqmA?sub_confirmation=1' }}"><span class="fab fa-youtube"></span></a></li>				
+				</ul>
+			</div>
+		</div>
+		<!-- Header Top -->
+
+		<!-- Header Lower -->
+		<div class="header-lower">
+			<!-- Main box -->
+			<div class="main-box">
+				<div class="logo-box">
+					<div class="logo"><a href="/"><img src="/static/images/logo.png" alt="Fundly Limited" width="180" title="Fundly Limited"></a></div>
+				</div>
+
+				<!--Nav Box-->
+				<div class="nav-outer">
+
+					<nav class="nav main-menu">
+						<ul class="navigation">
+							<li class="{% if title == 'Homepage' %}current{% endif %}"><a href="/">Home</a></li>
+							<li class="dropdown {% if title == 'About Us' or title == 'Projects' or title == 'Team Members' or title == 'Testimonies' or title == 'FAQs' or title == 'Our Services' or category == 'services' %}current{% endif %}"><a href="#">About</a>
+								<ul>
+									<li><a href="{% url 'about' %}">About</a></li>
+									<li><a href="{% url 'project:list' %}">Projects</a></li>
+									<li><a href="{% url 'users:team' %}">Team</a></li>
+									<li><a href="{% url 'testimonies' %}">Testimonial</a></li>
+									<li><a href="{% url 'services:list' %}">Services</a></li>
+									<li><a href="{% url 'faq' %}">FAQ</a></li>
+									
+								</ul>
+							</li>
+							
+							<li class="{% if title == 'Blogs' or category == 'Blogs > Test Category' %}current{% endif %}"><a href="{% url 'blog:list' %}">Blogs</a></li>
+							<li class="{% if title == 'Contact Us' %}current{% endif %}"><a href="{% url 'contact' %}">Contact</a></li>
+							<li><a href="{% url 'mchango:index' %}">Campaigns</a></li>
+							{% if request.user.is_staff %}
+								<li><a href="{% url 'admin:index' %}">Admin Portal</a></li>
+							{% endif %}
+						</ul>
+					</nav>
+					<!-- Main Menu End-->
+
+
+					<div class="outer-box">
+						<a href="tel:{{ about.phone_number|default:'+254111724214' }}" class="info-btn">
+							<i class="icon fa fa-phone"></i>
+							<small>Call Anytime</small><br> {{ about.phone_number|default:'+254111724214' }}
+						</a>
+
+						<a href="{% url 'docs' %}" class="theme-btn btn-style-one"><span class="btn-title">View Documents</span></a>
+
+						<!-- Mobile Nav toggler -->
+						<div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Header Lower -->
+
+		{% include 'partials/mobile_search_header.html' %}
+	</header>
+	<!--End Main Header -->

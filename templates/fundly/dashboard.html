@@ -1,0 +1,177 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}{{ title|default:'Contribution Pages' }} - Fundly{% endblock %}
+{% block content %}
+        
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <div class="auto-container">
+                {% if not page.status.name == 'Active' %}
+                    <div class="alert alert-{{ page.status.class_name }}" role="alert">
+                        {% if page.status.name == 'Pending' %}
+                            <h4 class="alert-heading p-0 m-0">Your Campaign is Under Review</h4>
+                            <p class="m-0 p-0">Thank you for submitting your fundraising campaign! Our team is currently reviewing your submission to ensure it meets our guidelines.</p>
+                            <p class="mb-0">You will receive a notification once your campaign is approved. In the meantime, you can make edits to your campaign details if needed.</p>
+                        {% elif page.status.name == 'Rejected' %}
+                            <h4 class="alert-heading m-0 p-0">Your Campaign Has Been Rejected</h4>
+                            <p class="m-0 p-0">We regret to inform you that your fundraising campaign did not meet our guidelines and has been rejected.</p>
+                            <p class="mb-0">Please review our <a href="{% url 'terms' %}" class="alert-link">campaign guidelines</a> and feel free to resubmit your campaign after making the necessary changes. If you have any questions, <a href="{% url 'contact' %}" class="alert-link">contact us</a>.</p>
+                        {% elif page.status.name == 'Closed' %}
+                            <h4 class="alert-heading m-0 p-0">Your Campaign Has Ended</h4>
+                            <p class="p-0 m-0">Your fundraising campaign is now closed. Thank you for using Fundly to support your cause!</p>
+                            <p class="mb-0">You can view your campaign's performance and download a report from your dashboard. If you have any remaining funds, you can initiate a withdrawal.</p>
+                        {% endif %}
+                    </div>
+                {% endif %}
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Target</h4>
+                                    <span class="price font-size-14">KES {{ page.target|default:0|intcomma }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Total Contributions</h4>
+                                    <span class="price font-size-14">KES {{ page.get_total_contributions|default:0|intcomma }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Total Pledges</h4>
+                                    <span class="price font-size-14">KES {{ page.get_total_pledges|default:0|intcomma }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Projection</h4>
+                                    <span class="price font-size-14">KES {{ page.get_projection|default:0|intcomma }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Percentage Achieved</h4>
+                                    <span class="price font-size-14">{{ page.get_progress|default:0 }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-12">
+                        <div class="product-block all">
+                            <div class="inner-box border">
+                                <div class="content text-start fs-10">
+                                    <h4 class="font-size-16">Available Cash</h4>
+                                    <span class="price font-size-14">KES. {{ page.get_available_cash|default:0|intcomma }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% include  'fundly/partial.html' %}
+
+                <div class="row mt-3">
+                    <div class="col-12 my-2 pt-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="m-0 p-0">Contributions</h4>
+                            <div>
+                                <button class="btn btn-secondary" type="button" onclick="print()" title="Print"><i class="fa fa-print"></i></button>
+                                <button class="btn btn-outline-primary" type="button">Export PDF</button>
+                            </div>
+                        </div>
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Tel No.</th>
+                                    <th>Mpesa Ref ID</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Balance</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if page.get_contributions %}
+                                {% for contribution in page.get_contributions %}
+                                    <tr>
+                                        <td>{{ contribution.id }}</td>
+                                        <td>{{ contribution.user.get_full_name|default:'Unknown' }}</td>
+                                        <td>{{ contribution.get_hidden_phone}}</td>
+                                        <td>{{ contribution.mpesa_ref_id }}</td>
+                                        <td>{{ contribution.created_at|date:'d M Y' }}</td>
+                                        <td>{{ contribution.amount|intcomma|default:0 }}</td>
+                                        <td>{{ contribution.pg_balance|intcomma|default:0 }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">No Contribution yet</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-12 my-2 pt-4">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <h4 class="m-0 p-0">Pledges</h4>
+                            <div>
+                                <button class="btn btn-secondary" type="button" onclick="print()" title="Print"><i class="fa fa-print"></i></button>
+                                <button class="btn btn-outline-primary" type="button">Export PDF</button>
+                            </div>
+                        </div>
+                        <table class="table table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Tel No.</th>
+                                    <th>Amount</th>
+                                    <th>To Pay By</th>
+                                    <th>Balance</th>
+                                    <th>Created At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if page.get_pledges %}
+                                {% for pledge in page.get_pledges %}
+                                    <tr>
+                                        <td>{{ pledge.id }}</td>
+                                        <td>{{ pledge.user.get_full_name|default:'Unknown' }}</td>
+                                        <td>{{ pledge.user.profile.get_hidden_phone }}</td>
+                                        <td>{{ pledge.amount|intcomma }}</td>
+                                        <td>{{ pledge.to_pay_by|date:'d M Y' }}</td>
+                                        <td>{{ pledge.balance|intcomma|default:0 }}</td>
+                                        <td>{{ pledge.created_at|date:'d M Y' }}</td>
+                                    </tr>
+                                {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">No Pledges Yet yet</td>
+                                    </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

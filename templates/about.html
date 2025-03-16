@@ -1,0 +1,181 @@
+{% extends 'base.html' %}
+{% block title %}About Fundly Limited - Software Solutions Tailored to Your Business{% endblock %}
+{% block meta %} 
+	<meta name="title" content="About Fundly Limited - Software Solutions Tailored to Your Business">
+    <meta name="keywords" content="fundly, fundly limited, fundly mission, fundly history, fundly vision, about fundly, fundly team,  software development, custom software, IT consultation, software solutions, business productivity, cost-effective solutions, user experience, software industry, software company history, company background, company mission, company vision, software experts, software professionals">
+    <meta name="description" content="Learn more about Fundly Limited, a software company that officially started on 20th October 2022. We take the time to understand our clients' processes and goals, and create custom software solutions tailored to their specific needs.">
+{% endblock %}
+{% block content %}
+	<!-- About Section Six-->
+	<section class="about-section-six">
+		<div class="auto-container">
+			<div class="row">
+				<div class="content-column col-xl-6 col-lg-7 col-md-12 col-sm-12 order-2 wow fadeInRight"
+					data-wow-delay="600ms">
+					<div class="inner-column">
+						<div class="sec-title">
+							<span class="sub-title">About Our Platform</span>
+							<h2>Always Deliver More than you Expected</h2>
+							<div class="text">Lengo is a leading platform that specializes in empowering contributions and elevating causes. Our primary focus is on helping individuals and organizations achieve their goals through seamless, user-friendly solutions. We are committed to delivering the highest quality tools that enhance user experience, streamline contributions, and ensure transparency.</div>
+						</div>
+						<div class="content-box">
+							<div class="about-block-four">
+								<i class="icon flaticon-business-018-startup"></i>
+								<h5 class="title">End-to-End Contribution Solutions</h5>
+								<div class="text">Lengo offers complete solutions for managing contributions, from creating profiles to tracking pledges and generating reports. Our platform ensures a seamless experience for both contributors and organizers.</div>
+							</div>
+							<div class="about-block-four">
+								<i class="icon flaticon-business-027-world"></i>
+								<h5 class="title">Transparent & Secure Platform</h5>
+								<div class="text">Lengo provides a trusted and secure platform for managing contributions. We prioritize transparency, ensuring that every transaction is tracked and reported accurately.</div>
+							</div>
+							<ul class="list-style-three">
+								<li>Customizable contribution profiles tailored to your needs</li>
+								<li>Advanced tracking and reporting tools for real-time insights</li>
+							</ul>
+						</div>
+	
+						<div class="btm-box">
+							<a href="/static/Lengo Portfolio.pdf" class="theme-btn btn-style-one"><span class="btn-title">Discover more</span></a>
+						</div>
+					</div>
+				</div>
+	
+				<!-- Image Column -->
+				<div class="image-column col-xl-6 col-lg-5 col-md-12 col-sm-12">
+					<div class="inner-column wow fadeInLeft">
+						<div class="image-box">
+							<figure class="image wow fadeIn"><img src="/static/images/resource/men.png" alt=""></figure>
+							<div class="completed-projects">
+								<strong>120+</strong>
+								<div class="text">CONTRIBUTIONS MANAGED</div>
+							</div>
+							<div class="experience bounce-y">
+								<strong>4</strong>
+								<div class="text">Experienced <br>Staff</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Emd About Section Six-->
+
+	<!-- Industries Section -->
+	<section class="industries-section style-two">
+		<div class="auto-container">
+			<div class="sec-title text-center light">
+				<span class="sub-title">Areas We Support</span>
+				<h2>We’re Dedicated to Serve <br>You All Time</h2>
+			</div>
+			<div class="row justify-content-center">
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-011-dollar"></i>
+						<h6 class="title"><a href="">Fast Donations</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-049-presentation"></i>
+						<h6 class="title"><a href="">Medical Support</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-061-meeting"></i>
+						<h6 class="title"><a href="">Education Funds</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-030-settings"></i>
+						<h6 class="title"><a href="">Causes</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-054-graph"></i>
+						<h6 class="title"><a href="">Nonprofits</a></h6>
+					</div>
+				</div>
+	
+				<!-- Feature Block Two -->
+				<div class="feature-block-two col-xl-2 col-lg-3 col-md-4 col-sm-6 wow fadeInUp">
+					<div class="inner-box">
+						<i class="icon flaticon-business-020-hierarchy"></i>
+						<h6 class="title"><a href="">Crowdfunding</a></h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- End Industries Section -->
+
+	{% include 'partials/projects/1.html' %}
+
+	<!-- Team Section -->
+	<section class="team-section-two">
+		<div class="auto-container">
+			<div class="sec-title text-center">
+				<span class="sub-title">Our team expert</span>
+				<h2>Meet Professionals</h2>
+			</div>
+
+			<div class="row">
+				{% if teams %}
+					{% for team in teams %}
+						<!-- Team block -->
+						<div class="team-block-two col-lg-3 col-md-6 col-sm-12 wow fadeInUp">
+							<div class="inner-box">
+								<div class="info-box">
+									<h5 class="name"><a href="{{ team.get_absolute_url }}">{{ team.user.get_full_name|default:'No Name' }}</a></h5>
+									<span class="designation">{{ team.rank|default:'Member' }}</span>
+									<span class="share-icon fa fa-share-alt"></span>
+									<div class="social-links">
+										{% if team.user.email %} 
+											<a href="mailto:{{ team.user.email }}"><i class="fa fa-envelope"></i></a>
+										{% endif %}
+										{% if team.user.profile.phone_number %} 
+											<a href="tel:{{ team.user.profile.phone_number }}"><i class="fa fa-phone"></i></a>
+										{% endif %}
+										{% if team.user.profile.twitter %} 
+											<a href="{{ team.user.profile.twitter }}"><i class="fab fa-twitter"></i></a>
+										{% endif %}
+										{% if team.user.profile.linkedin %}
+											<a href="{{ team.user.profile.linkedin }}"><i class="fab fa-linkedin"></i></a> 
+										{% endif %}
+										{% if team.user.profile.instagram %}
+											<a href="{{ team.user.profile.instagram }}"><i class="fab fa-instagram"></i></a> 
+										{% endif %}
+									</div>
+								</div>
+								<div class="image-box">
+									<figure class="image"><a href="{{ team.get_absolute_url }}"><img src="{% if team.image %}{{ team.image.url }}{% else %}/static/images/resource/team-1.jpg{% endif %}" alt="{{ team.user.get_full_name|default:'No Name'  }}"></a></figure>
+								</div>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+					<div class="alert alert-info">
+						<p class="text-center font-weight-bold">No Team Provided</p>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!-- End Team Section -->
+
+	{% include 'partials/clients/1.html' %}
+
+{% endblock %}

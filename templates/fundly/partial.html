@@ -1,0 +1,14 @@
+<div class="d-flex align-items-center justify-content-end">
+    <a href="{% url 'mchango:create' %}" class="theme-btn btn-style-one" title="Create a New Campaign"><span class="btn-title"><i class="fa fa-plus"></i> Add</span></a>
+    {% if page %}
+        {% if page.status.name == 'Active' %}
+            <a href="{{ page.get_contribute_url }}" class="theme-btn btn-style-two"><span class="btn-title">Contribute</span></a>
+        {% endif %}
+        {% if request.user == page.user or request.user.is_staff %}
+            <a href="{{ page.get_edit_url }}" class="theme-btn btn-style-three" title="Edit Campaign"><span class="btn-title"><i class="fas fa-edit"></i> Edit</span></a>
+            {% if page.status.name == 'Active' %}
+                <a href="{{ page.get_close_url }}" class="theme-btn btn-style-one bg-danger text-white" title="Close Campaign"><span class="btn-title"><i class="fa fa-trash"></i> Close</span></a>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+</div>

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}FAQs - Fundly Limited{% endblock %}
+{% block meta %}
+	<meta name="title" content="FAQs - Fundly Limited">
+    <meta name="keyword" content="FAQ, FAQs, frequently asked questions, Fundly Limited, products, services, information, help, Do you offer job opportunities or accept ideas from non - staff members??, What is your team&#x27;s experience in developing mobile applications?, Are your team members certified in the latest technologies?, What is your team&#x27;s experience in developing custom software solutions for our industry?, How does your team handle customer service and technical support?, How well does your team understand the technologies used in our industry?, How quickly and effectively can your team respond to technical inquiries and problems?">
+    <meta name="description" content="Find answers to frequently asked questions about Fundly Limited and our products/services on this page.">
+{% endblock %}
+{% block content %}
+{% if faqs %}
+	<!-- FAQ Section -->
+	<section class="">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<ul class="accordion-box wow fadeInRight">
+						<div class="row">
+							<div class="col-md-6">
+								<!--Block-->
+								<li class="accordion block active-block">
+									<div class="acc-btn active">What is your Team's Experience in developing mobile application?
+										<div class="icon fa fa-plus"></div>
+									</div>
+									<div class="acc-content current">
+										<div class="content">
+											<div class="text">We also have extensive experience in developing mobile applications and are equipped to handle large projects. Our rates are competitive and depend on the scope of the project</div>
+										</div>
+									</div>
+								</li>
+							</div>
+							{% for faq in faqs %}
+							<div class="col-md-6">
+							<!--Block-->
+							<li class="accordion block">
+								<div class="acc-btn">{{ faq.question }}
+									<div class="icon fa fa-plus"></div>
+								</div>
+								<div class="acc-content">
+									<div class="content">
+										<div class="text">{{ faq.answer|linebreaks }}</div>
+									</div>
+								</div>
+							</li>
+							</div>
+						{% endfor %}
+						<!--Block-->
+						</div>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End FAQ Section -->
+{% endif %}
+{% endblock %}

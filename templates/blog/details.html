@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ category }} - Fundly Limited{% endblock %}
+{% block content %}
+	<!--Blog Details Start-->
+	<section class="blog-details">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-8 col-lg-7">
+					<div class="blog-details__left">
+						<div class="blog-details__img">
+							<img src="{% if post.cover_image %}{{ post.cover_image.url }}{% else %}/static/images/resource/news-details.jpg{% endif %}" alt="{{ post }}" title="{{ post }}">
+							<div class="blog-details__date">
+								<span class="day">{{ post.published_date|date:'d' }}</span>
+								<span class="month">{{ post.published_date|date:'M' }}</span>
+							</div>
+						</div>
+						<div class="blog-details__content">
+							<ul class="list-unstyled blog-details__meta">
+								<li><a href="news-details/"><i class="fas fa-user-circle"></i> {{ post.author.get_full_name|default:'No Name' }}</a> </li>
+								<li>
+									<i class="fa fa-eye" aria-hidden="true"></i> {{ post.views }}
+									<a href="{% url 'blog:like_post' post.slug %}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> {{ post.likes }}
+									<a href="{% url 'blog:dislike_post' post.slug %}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a> {{ post.dislikes }}
+									<a href="#comments"><i class="fas fa-comments"></i> {{ post.comments.all.count }} Comments</a>
+								</li>
+							</ul>
+							<h3 class="blog-details__title">{{ post.title }}</h3>
+							<p class="blog-details__text-2">
+								{{ post.body|linebreaks }}
+							</p>
+						</div>
+						<div class="blog-details__bottom">
+							{% if post.tags.all %}
+							<p class="blog-details__tags"> 
+								<span>Tags</span> 
+								{% for post_tag in post.tags.all %}
+								<a href="{% url 'blog:list_by_tag' post_tag.slug %}">{{ post_tag }}</a> 
+								{% endfor %} 
+							</p>
+							{% endif %}
+							<div class="blog-details__social-list"> 
+								<span class="px-2">Share Post</span>
+								<a href="https://twitter.com/intent/tweet?text={{ blog_text }}&url={{ blog_full_url }}"><i class="fab fa-twitter"></i></a> 
+								<a href="https://www.linkedin.com/shareArticle?mini=true&url={{ blog_full_url }}&title={{ post.title }}"><i class="fab fa-linkedin"></i></a> 
+								<a href="mailto:{{ post.author.email }}?subject={{ post.title }}&body={{ blog_text }}{{ blog_full_url }}"><i class="fa fa-envelope"></i></a> 
+								<a href="https://www.facebook.com/sharer/sharer.php?u={{ blog_full_url }}"><i class="fab fa-facebook"></i></a> 
+							</div>
+						</div>
+						<div class="nav-links">
+							{% if previous_post %}
+								<div class="prev">
+									<a href="{{ previous_post.get_absolute_url }}" rel="prev">{{ previous_post }}</a>
+								</div>
+							{% endif %}
+							{% if next_post %}
+								<div class="next">
+									<a href="{{ next_post.get_absolute_url }}" rel="next">{{ next_post }}</a>
+								</div>
+							{% endif %}
+						</div>
+						<div class="comment-one" id="comments">
+							<h3 class="comment-one__title">{{ post.comments.all.count }} Comments</h3>
+							{% if post.comments.all %}
+								{% for post_comment in post.comments.all %}
+									<div class="comment-one__single">
+										<div class="comment-one__image"> 
+											<img src="
+											{% if post_comment.author.profile.image %}
+												{{ post_comment.author.profile.image.url }}
+											{% else %}
+												{% if post_comment.author.profile.gender == 'male' %}
+													/static/sb/img/undraw_profile_2.svg
+												{% elif post_comment.author.profile.gender == 'female' %}
+													/static/sb/img/undraw_profile_1.svg
+												{% else %}
+													/static/sb/img/undraw_profile.svg
+												{% endif %}
+											{% endif %}" alt="{{ post_comment.author.get_full_name }}">
+										 </div>
+										<div class="comment-one__content">
+											<h3>{{ post_comment.author.get_full_name }}</h3>
+											<p>
+												{{ post_comment.message }}
+												{% if request.user == post_comment.author %} <br>
+													<a href="{% url 'blog:edit_comment' post_comment.id %}" class="btn btn-sm btn-primary text-white"><i class="fas fa-edit"></i></a>
+													<a href="{% url 'blog:delete_comment' post_comment.id %}" class="btn btn-sm btn-danger text-white"><i class="fa fa-trash" aria-hidden="true"></i></a>
+												{% endif %}
+											</p>
+											<a href="news-details/" class="theme-btn btn-style-one comment-one__btn"><span class="btn-title">Reply</span></a>
+										</div>
+									</div>
+								{% endfor %}
+							{% else %}
+							<div class="comment-one__single">
+								<div class="comment-one__content">
+									<p>No comments, be the first to leave a comment</p>
+								</div>
+							</div>
+							{% endif %}
+							<div class="comment-form">
+								<h3 class="comment-form__title">
+									{% if comment %}
+										Edit your comment on {{ post }}
+									{% else %}
+										Leave a Comment
+									{% endif %}
+								</h3>
+								{% if comment %}
+									<form id="contact_form" name="contact_form" class="" action="{% url 'blog:comment' post.slug comment.id %}" method="post">
+										{% csrf_token %}
+										<div class="mb-3">
+											<textarea name="message" required class="form-control required" rows="5" placeholder="Enter Message">{{ comment.message }}</textarea>
+										</div>
+										<div class="mb-3">
+											<button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Submit Comment</span></button>
+										</div>
+									</form>
+								{% else %}
+									<form id="contact_form" name="contact_form" class="" action="{% url 'blog:comment' post.slug %}" method="post">
+										{% csrf_token %}
+										<div class="mb-3">
+											<textarea name="message" required class="form-control required" rows="5" placeholder="Enter Message"></textarea>
+										</div>
+										<div class="mb-3">
+											<button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Submit Comment</span></button>
+										</div>
+									</form>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-5">
+					{% include 'blog/sidebar.html' %}
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Blog Details End-->
+{% endblock %}

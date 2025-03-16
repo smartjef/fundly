@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block title %}{{ title|default:'Contribution Pages' }} - Fundly{% endblock %}
+{% block content %}
+<section class="team-details">
+    <div class="container pb-100">
+        <div class="team-details__top pb-70">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6">
+                    <a href="{{ page.get_absolute_url }}" class="theme-btn btn-style-one"><i class="fas fa-tachometer-alt font-size-18 mx-2"></i> View Dashboard</a>
+                    <a href="{{ page.get_absolute_url }}" class="theme-btn btn-style-three"><i class="fa fa-exclamation-triangle font-size-18 mx-2"></i> Report Campaign</a>
+                    <div class="team-details__top-left">
+                        <div class="team-details__top-img"><img src="{% if page.photo %}{{ page.photo.url }}{% else %}/static/images/resources/feature-bg-1.jpg{% endif %}" alt="">
+                            <div class="team-details__big-text"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-6">
+                    <div class="team-details__top-right">
+                        <div class="team-details__top-content">
+                            <h3 class="team-details__top-name">Campaign: {{ page.getId }}</h3>
+                            <p class="team-details__top-title fw-bold">Owner: {{ page.user.get_full_name|default:'Unknown' }} | Created: {{ page.created_at|default:'Unknown' }}</p>
+                            <div class="team-details__social">
+                                {% if page.user.email %} 
+                                    <a href="mailto:{{ page.user.email }}"><i class="fa fa-envelope"></i></a>
+                                {% endif %}
+                                {% if page.user.profile.phone_number %} 
+                                    <a href="tel:{{ page.user.profile.phone_number }}"><i class="fa fa-phone"></i></a>
+                                {% endif %}
+                            </div>
+                            <p class="team-details__top-text-1 m-0 p-0">Target: KES {{ page.target|intcomma|default:'Unknown' }}</p>
+                            <p class="team-details__top-text-2 m-0 p-0">Achieved: KES {{ page.get_balance|intcomma|default:0 }}({{ page.get_progress|default:0 }}%)</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ page.get_progress|default:0 }}%" aria-valuenow="{{ page.get_progress }}" aria-valuemin="0" aria-valuemax="100">{{ page.get_progress }}%</div>
+                            </div>
+                            <p class="team-details__top-text-3">
+                                {{ page.purpose|default:'No Purpose Provided'|linebreaks}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% if page.note %}
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading p-0 m-0">Note:</h4>
+                        {{ page.note|default:'No Note Provided'|linebreaks}}
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        <div class="team-details__bottom pt-100">
+            <div class="row">
+                <!-- Vertical Tabs -->
+                <div class="col-md-3">
+                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
+                        <button class="nav-link theme-btn btn-style-one text-dark active" id="contribute-tab" data-bs-toggle="pill" data-bs-target="#contribute" type="button" role="tab" aria-controls="contribute" aria-selected="true">Contribute</button>
+                        <button class="nav-link theme-btn btn-style-two text-dark" id="pledge-tab" data-bs-toggle="pill" data-bs-target="#pledge" type="button" role="tab" aria-controls="pledge" aria-selected="false">Pledge</button>
+                    </div>
+                </div>
+    
+                <!-- Tab Content -->
+                <div class="col-md-9">
+                    <div class="tab-content" id="v-pills-tabContent">
+                        <!-- Contribute Tab -->
+                        <div class="tab-pane fade show active" id="contribute" role="tabpanel" aria-labelledby="contribute-tab">
+                            <!-- Horizontal Tabs inside Contribute -->
+                            <ul class="nav nav-tabs" id="contribute-sub-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <button class="nav-link active theme-btn btn-style-three" id="stk-push-tab" data-bs-toggle="tab" data-bs-target="#stk-push" type="button" role="tab" aria-controls="stk-push" aria-selected="true">STK Push</button>
+                                </li>
+                                <li class="nav-item">
+                                    <button class="nav-link theme-btn btn-style-two text-dark" id="paybill-tab" data-bs-toggle="tab" data-bs-target="#paybill" type="button" role="tab" aria-controls="paybill" aria-selected="false">Pay via Paybill</button>
+                                </li>
+                            </ul>
+    
+                            <!-- Horizontal Tab Content -->
+                            <div class="tab-content mt-3">
+                                <div class="tab-pane fade show active" id="stk-push" role="tabpanel" aria-labelledby="stk-push-tab">
+                                    <h4>STK Push Payment</h4>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="phone" class="form-label">Phone Number</label>
+                                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your M-Pesa phone number">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="amount" class="form-label">Amount</label>
+                                            <input type="number" class="form-control" id="amount" name="amount" placeholder="Enter amount">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Pay Now</button>
+                                    </form>
+                                </div>
+    
+                                <div class="tab-pane fade" id="paybill" role="tabpanel" aria-labelledby="paybill-tab">
+                                    <h4>Pay via Paybill</h4>
+                                    <p>Use the Paybill number below to send your contribution:</p>
+                                    <ul>
+                                        <li><strong>Paybill:</strong> 123456</li>
+                                        <li><strong>Account Number:</strong> FUNDLY2025</li>
+                                    </ul>
+                                    <p>After payment, enter your transaction code below:</p>
+                                    <form method="POST">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="transaction_code" class="form-label">Transaction Code</label>
+                                            <input type="text" class="form-control" id="transaction_code" name="transaction_code" placeholder="Enter M-Pesa transaction code">
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Pledge Tab -->
+                        <div class="tab-pane fade" id="pledge" role="tabpanel" aria-labelledby="pledge-tab">
+                            <h4>Make a Pledge</h4>
+                            <p>Promise a contribution amount and fulfill it later.</p>
+                            <form method="POST" action="{% url 'mchango:store_pledge' page.slug %}">
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <button type="submit" class="btn btn-success">Make Pledge</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>        
+
+{% endblock %}

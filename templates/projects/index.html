@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block title %}
+	Completed Projects - Fundly Limited
+{% endblock %}
+{% block meta %}
+	<meta name="title" content="Products and Projects - Fundly Limited">
+	<meta name="keywords" content="fundly, fundly limied, fundly products, products, services, software solutions, Fundly Limited, business needs, industry solutions">
+	<meta name="description" content="Explore the range of software solutions, services and various designs offered by Fundly Limited. Find the right product or service to meet your business needs.">
+{% endblock %}
+{% block content %}
+{% if projects %}
+	<!-- Gallery Section -->
+	<section class="">
+		<div class="container">
+			<div class="row g-3">
+				{% for project in projects %}
+				<div class="col-lg-4 col-md-6 col-sm-12">
+					<!-- Project Block -->
+					<div class="project-block">
+						<div class="inner-box">
+							<div class="image-box">
+								<figure class="image"><a href="{{ project.get_absolute_url }}" class="lightbox-image"><img src="{% if project.front_image %}{{ project.front_image.url }}{% else %}/static/images/resource/project-1.jpg{% endif %}" alt="{{ project.title }}" title="{{ project.title }}"></a></figure>
+								<a href="{{ project.get_absolute_url }}" class="icon"><i class="fa fa-long-arrow-alt-right"></i></a>
+							</div>
+							<div class="content-box">
+								<h4 class="title"><a href="{{ project.get_absolute_url }}">{{ project.title|default:'Unknown'|truncatechars:30 }}</a></h4>
+								<span class="cat">{{ project.category }} - {{ project.get_status }}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</section>
+	<!-- End Gallery Section -->
+{% endif %}
+{% endblock %}

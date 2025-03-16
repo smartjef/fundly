@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Documentation - Fundly Limited{% endblock %}
+{% block content %}
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<!-- Documentation Tabs -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <!-- Vertical Tabs -->
+        <div class="col-lg-3 p-0 m-0 bg-secondary">
+            <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                <a class="theme-btn btn-style-one active mb-2" id="v-pills-presentation-tab" data-toggle="pill" href="#v-pills-presentation" role="tab" aria-controls="v-pills-presentation" aria-selected="true">Presentation</a>
+                <a class="theme-btn btn-style-three" id="v-pills-word-tab" data-toggle="pill" href="#v-pills-word" role="tab" aria-controls="v-pills-word" aria-selected="false">Word Document</a>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="col-lg-9 border p-0 m-0">
+            <div class="tab-content" id="v-pills-tabContent">
+                <!-- Presentation Tab -->
+                <div class="tab-pane fade show active" id="v-pills-presentation" role="tabpanel" aria-labelledby="v-pills-presentation-tab">
+                    <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vTmPOw8FPZC-yqbj4RwdwtiNpU6ni8WA8JH6N1yTDcFcRjgUEtaAsicqFOHvuktxq3LMiqzM_jODG3M/embed?start=false&loop=false&delayms=3000" frameborder="0" width="100%" height="620" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+                </div>
+                <!-- Word Document Tab -->
+                <div class="tab-pane fade" id="v-pills-word" role="tabpanel" aria-labelledby="v-pills-word-tab">
+                    <iframe src="https://docs.google.com/document/d/e/2PACX-1vRMkm1xiMEIWExBPFJpdBJVGSj-1dQ6EcsVfUozslrw-Fw87cd47paBevYkgAb5zQeR2QU_WKiBfwYp/pub?embedded=true" width="100%" height="620" frameborder="0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+
+	<!-- Project Section -->
+	<section class="project-section pb-0">
+		<div class="auto-container">
+			<div class="sec-title">
+				<div class="row">
+					<div class="col-lg-7">
+						<span class="sub-title">Our Projects</span>
+						<h2>Improve & Enhance your <br>Projects</h2>
+					</div>
+					<div class="col-lg-5">
+						<div class="text">
+							Our team excels at improving and enhancing tech projects. We optimize systems, refine functionalities, and introduce innovative solutions. Leveraging cutting-edge technologies, we ensure highly efficient and effective outcomes for our clients.
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="carousel-outer">
+				<!-- Prject Carousel -->
+				{% if projects %}
+				<div class="project-carousel owl-carousel owl-theme">
+					<!-- Project Block -->
+					{% for project in projects %}
+					<div class="project-block">
+						<div class="inner-box">
+							<div class="image-box">
+								<figure class="image"><a href="{{ project.get_absolute_url }}" class="lightbox-image"><img src="{% if project.front_image %}{{ project.front_image.url }}{% else %}/static/images/resource/project-1.jpg{% endif %}" alt=""></a></figure>
+								<a href="{{ project.get_absolute_url }}" class="icon"><i class="fa fa-long-arrow-alt-right"></i></a>
+							</div>
+							<div class="content-box">
+								<h4 class="title"><a href="{{ project.get_absolute_url }}">{{ project.title|default:'Unknown'|truncatechars:30 }}</a></h4>
+								<span class="cat">{{ project.category }} - {{ project.get_status }}</span>
+							</div>
+						</div>
+					</div>	
+					{% endfor %}				
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!--End Project Section -->

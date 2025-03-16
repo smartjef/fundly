@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- page-pricing,  18:22:11 GMT -->
+<head>
+<meta charset="utf-8">
+<title>Fundly |IT Solutions & Technology HTML Template | Home Page 01</title>
+<!-- Stylesheets -->
+<link href="/static/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="/static/css/style.css" rel="stylesheet">
+<link href="/static/css/responsive.css" rel="stylesheet">
+
+<link rel="shortcut icon" href="/static/images/favicon.png" type="image/x-icon">
+<link rel="icon" href="/static/images/favicon.png" type="image/x-icon">
+
+<!-- Responsive -->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+</head>
+
+<body>
+
+<div class="page-wrapper">
+
+	<!-- Preloader -->
+	<!-- <div class="preloader"></div> -->
+
+	<!-- Main Header-->
+	<header class="main-header header-style-one">
+		<!-- Header Top -->
+		<div class="header-top">
+			<div class="inner-container">
+
+				<div class="top-left">
+					<!-- Info List -->
+					<ul class="list-style-one">
+						<li><i class="fa fa-envelope"></i> <a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a></li>
+						<li><i class="fa fa-map-marker"></i> {{ about.address|default:'JKUAT, Main Gate' }} New York</li>
+					</ul>
+				</div>
+
+				<div class="top-right">
+					<ul class="useful-links">
+						{% if request.user.is_authenticated %}
+							{% if request.user.is_staff %}
+							<li><a href="{% url 'admin:index' %}">Staff</a></li>
+							<li><a href="{% url 'account_logout' %}">Logout</a></li>
+							{% endif %}
+						{% else %}				
+							<li><a href="{% url 'account_signup' %}">Register</a></li>
+							<li><a href="{% url 'account_login' %}">Login</a></li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+
+			<div class="outer-box">
+				<ul class="social-icon-one">
+					<li><a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><span class="fab fa-twitter"></span></a></li>
+					<li><a href="{{ about.facebook|default:'https://fb.com' }}"><span class="fab fa-facebook-square"></span></a></li>
+					<li><a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><span class="fab fa-linkedin"></span></a></li>
+					<li><a href="{{ about.youtube|default:'https://www.youtube.com/channel/UCkedAOBJuj9d0cvTKFzWqmA?sub_confirmation=1' }}"><span class="fab fa-youtube"></span></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- Header Top -->
+
+		<!-- Header Lower -->
+		<div class="header-lower">
+			<!-- Main box -->
+			<div class="main-box">
+				<div class="logo-box">
+					<div class="logo"><a href="/"><img src="/static/images/logo.png" alt="" width="180" title="Fundly Limited"></a></div>
+				</div>
+
+				<!--Nav Box-->
+					<nav class="nav main-menu">
+						<ul class="navigation">
+							<li class="current"><a href="/">Home</a></li>
+							<li class="dropdown"><a href="#">About</a>
+								<ul>
+									<li><a href="{% url 'about' %}">About</a></li>
+									<li><a href="{% url 'project:list' %}">Projects</a></li>
+									<li><a href="{% url 'users:team' %}">Team</a></li>
+									<li><a href="{% url 'testimonies' %}">Testimonial</a></li>
+									<!-- <li><a href="page-pricing.html">Pricing</a></li>
+									<li><a href="page-pricing-switcher.html">Pricing Switcher</a></li> -->
+									<li><a href="{% url 'faq' %}">FAQ</a></li>
+									
+								</ul>
+							</li>
+							<li><a href="{% url 'services:list' %}">Services</a></li>
+							<li><a href="{% url 'blog:list' %}">Blogs</a></li>
+							<li><a href="{% url 'contact' %}">Contact</a></li>
+						</ul>
+					</nav>
+			</div>
+		</div>
+		<!-- End Header Lower -->
+
+		<!-- Mobile Menu  -->
+		<div class="mobile-menu">
+			<div class="menu-backdrop"></div>
+
+			<!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header-->
+			<nav class="menu-box">
+				<div class="upper-box">
+					<div class="nav-logo"><a href="/"><img src="/static/images/logo.png" alt="" width="180" title="Fundly Limited"></a></div>
+					<div class="close-btn"><i class="icon fa fa-times"></i></div>
+				</div>
+
+				<ul class="navigation clearfix">
+					<!--Keep This Empty / Menu will come through Javascript-->
+				</ul>
+				<ul class="contact-list-one">
+					<li>
+						<!-- Contact Info Box -->
+						<div class="contact-info-box">
+							<i class="icon lnr-icon-phone-handset"></i>
+							<span class="title">Call Now</span>
+							<a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a>
+						</div>
+					</li>
+					<li>
+						<!-- Contact Info Box -->
+						<div class="contact-info-box">
+							<span class="icon lnr-icon-envelope1"></span>
+							<span class="title">Send Email</span>
+							<a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a>
+						</div>
+					</li>
+					<li>
+						<!-- Contact Info Box -->
+						<div class="contact-info-box">
+							<span class="icon lnr-icon-clock"></span>
+							<span class="title">Send Email</span>
+							Mon - Sat 8:00 - 6:30, Sunday - CLOSED
+						</div>
+					</li>
+				</ul>
+
+
+				<ul class="social-links">
+					<li><a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><span class="fab fa-twitter"></span></a></li>
+					<li><a href="{{ about.facebook|default:'https://fb.com' }}"><span class="fab fa-facebook-square"></span></a></li>
+					<li><a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><span class="fab fa-linkedin"></span></a></li>
+					<li><a href="{{ about.youtube|default:'https://www.youtube.com/channel/UCkedAOBJuj9d0cvTKFzWqmA?sub_confirmation=1' }}"><span class="fab fa-youtube"></span></a></li>
+				</ul>
+			</nav>
+		</div><!-- End Mobile Menu -->
+
+		<!-- Header Search -->
+		<div class="search-popup">
+			<span class="search-back-drop"></span>
+			<button class="close-search"><span class="fa fa-times"></span></button>
+
+			<div class="search-inner">
+				<form method="post" action="">
+					<div class="form-group">
+						<input type="search" name="search-field" value="" placeholder="Search..." required="">
+						<button type="submit"><i class="fa fa-search"></i></button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- End Header Search -->
+
+		<!-- Sticky Header  -->
+		<div class="sticky-header">
+			<div class="auto-container">
+				<div class="inner-container">
+					<!--Logo-->
+					<div class="logo">
+						<a href="/" title="Fundly Limited"><img src="/static/images/logo-2.png" alt="" title="Fundly Limited"></a>
+					</div>
+
+					<!--Right Col-->
+					<div class="nav-outer">
+						<!-- Main Menu -->
+						<nav class="main-menu">
+							<div class="navbar-collapse show collapse clearfix">
+								<ul class="navigation clearfix">
+									<!--Keep This Empty / Menu will come through Javascript-->
+								</ul>
+							</div>
+						</nav><!-- Main Menu End-->
+
+						<!--Mobile Navigation Toggler-->
+						<div class="mobile-nav-toggler"><span class="icon lnr-icon-bars"></span></div>
+					</div>
+				</div>
+			</div>
+		</div><!-- End Sticky Menu -->
+	</header>
+	<!--End Main Header -->
+
+	<!-- Start main-content -->
+	<section class="page-title" style="background-image: url(/static/images/background/page-title.jpg);">
+		<div class="auto-container">
+			<div class="title-outer">
+				<h1 class="title">Pricing</h1>
+				<ul class="page-breadcrumb">
+					<li><a href="/">Home</a></li>
+					<li><a href="#">Pages</a></li>
+					<li>Pricing</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<!-- end main-content -->
+
+	<!-- Pricing Section -->
+	<section class="">
+		<div class="container pb-70">
+			<div class="row">
+				<div class="col-xl-4 col-lg-4">
+					<div class="pricing-block">
+						<div class="inner-box">
+							<figure class="image"><img src="/static/images/resource/pricing-1.png" alt=""></figure>
+							<div class="price-box">
+								<h4 class="price"><sup>$</sup>49</h4>
+								<span class="validaty">/ Monthly</span>
+							</div>
+							<h4 class="title">Basic Plan</h4>
+							<ul class="features">
+								<li>24/7 system monitoring</li>
+								<li>Security management</li>
+								<li>Patch management</li>
+								<li>Remote support</li>
+							</ul>
+							<div class="btn-box">
+								<a href="page-pricing.html" class="theme-btn btn-style-one hvr-light"><span class="btn-title">Choose plan</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-4">
+					<div class="pricing-block">
+						<div class="inner-box">
+							<figure class="image"><img src="/static/images/resource/pricing-2.png" alt=""></figure>
+							<div class="price-box">
+								<h4 class="price"><sup>$</sup>69</h4>
+								<span class="validaty">/ Monthly</span>
+							</div>
+							<h4 class="title">Advance Plan</h4>
+							<ul class="features">
+								<li>24/7 system monitoring</li>
+								<li>Security management</li>
+								<li>Patch management</li>
+								<li>Remote support</li>
+							</ul>
+							<div class="btn-box">
+								<a href="page-pricing.html" class="theme-btn btn-style-one hvr-light"><span class="btn-title">Choose plan</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-4">
+					<div class="pricing-block">
+						<div class="inner-box">
+							<figure class="image"><img src="/static/images/resource/pricing-1.png" alt=""></figure>
+							<div class="price-box">
+								<h4 class="price"><sup>$</sup>99</h4>
+								<span class="validaty">/ Monthly</span>
+							</div>
+							<h4 class="title">Premium Plan</h4>
+							<ul class="features">
+								<li>24/7 system monitoring</li>
+								<li>Security management</li>
+								<li>Patch management</li>
+								<li>Remote support</li>
+							</ul>
+							<div class="btn-box">
+								<a href="page-pricing.html" class="theme-btn btn-style-one hvr-light"><span class="btn-title">Choose plan</span></a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--End Pricing Section -->
+
+	<!-- Main Footer -->
+	<footer class="main-footer">
+		<div class="bg-image"  style="background-image: url(/static/images/background/2.jpg)"></div>
+
+		<!--Widgets Section-->
+		<div class="widgets-section">
+			<div class="auto-container">
+				<div class="row">
+					<!--Footer Column-->
+					<div class="footer-column col-xl-3 col-lg-12 col-md-6 col-sm-12">
+						<div class="footer-widget about-widget">
+							<div class="logo"><a href="/"><img src="/static/images/logo.png" alt="" width="180" ></a></div>
+							<div class="text">Desires to obtain pain of itself, because it is pain, but occasionally circumstances.</div>
+							<ul class="social-icon-two">
+								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fab fa-facebook"></i></a></li>
+								<li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+								<li><a href="#"><i class="fab fa-instagram"></i></a></li>
+							</ul>
+						</div>
+					</div>
+
+					<!--Footer Column-->
+					<div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+						<div class="footer-widget">
+							<h3 class="widget-title">Explore</h3>
+							<ul class="user-links">
+								<li><a href="#">About Company</a></li>
+								<li><a href="#">Meet the Team</a></li>
+								<li><a href="#">News & Media</a></li>
+								<li><a href="#">Our Projects</a></li>
+								
+							</ul>
+						</div>
+					</div>
+
+					<!--Footer Column-->
+					<div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+						<div class="footer-widget contact-widget">
+							<h3 class="widget-title">Contact</h3>
+							<div class="widget-content">
+								<div class="text">{{ about.address|default:'JKUAT, Main Gate' }}</div>
+								<ul class="contact-info">
+									<li><i class="fa fa-envelope"></i> <a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a><br></li>
+									<li><i class="fa fa-phone-square"></i> <a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a><br></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<!--Footer Column-->
+					<div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+						<div class="footer-widget gallery-widget">
+							<h3 class="widget-title">Gallery</h3>
+							<div class="widget-content">
+								<div class="outer clearfix">
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-1.jpg" alt=""></a>
+									</figure>
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-2.jpg" alt=""></a>
+									</figure>
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-3.jpg" alt=""></a>
+									</figure>
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-4.jpg" alt=""></a>
+									</figure>
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-5.jpg" alt=""></a>
+									</figure>
+									<figure class="image">
+										<a href="#"><img src="/static/images/resource/project-thumb-6.jpg" alt=""></a>
+									</figure>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!--Footer Bottom-->
+		<div class="footer-bottom">
+			<div class="auto-container">
+				<div class="inner-container">
+					<div class="copyright-text">&copy; Copyright 2022 by  <a href="/">Fundly Limited</a>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!--End Main Footer -->
+
+</div><!-- End Page Wrapper -->
+
+
+<!-- Scroll To Top -->
+<div class="scroll-to-top scroll-to-target" data-target="html"><span class="fa fa-angle-up"></span></div>
+
+
+<script src="/static/js/jquery.js"></script>
+<script src="/static/js/popper.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/jquery.fancybox.js"></script>
+<script src="/static/js/jquery-ui.js"></script>
+<script src="/static/js/wow.js"></script>
+<script src="/static/js/appear.js"></script>
+<script src="/static/js/select2.min.js"></script>
+<script src="/static/js/swiper.min.js"></script>
+<script src="/static/js/owl.js"></script>
+<script src="/static/js/script.js"></script>
+</body>
+
+<!-- page-pricing,  18:22:11 GMT -->
+</html>

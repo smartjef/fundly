@@ -1,0 +1,42 @@
+{% if blogs %}
+	<!-- News Section -->
+	<section class="news-section">
+		<div class="auto-container">
+			<div class="sec-title text-center">
+				<span class="sub-title">from the blog</span>
+				<h2>News & Articles</h2>
+			</div>
+
+			<div class="row">
+				{% for blog in blogs %}
+					<!-- News Block -->
+					<div class="news-block col-lg-4 col-md-6 col-sm-12 wow fadeInUp">
+						<div class="inner-box">
+							<div class="image-box">
+								<figure class="image"><a href="{{ blog.get_absolute_url }}"><img src="{% if blog.front_image %} {{blog.front_image.url }} {% else %}/static/images/resource/news-1.jpg{% endif %}" alt="{{ blog }}" title="{{ blog }}"></a></figure>
+								<span class="date"><b>{{ blog.published_date|date:'d' }}</b> {{ blog.published_date|date:'M' }}</span>
+							</div>
+							<div class="content-box">
+								<ul class="post-info">
+									<li><i class="fa fa-user"></i> by {{ blog.author.get_full_name|default:'No Name' }}</li>
+									<li><i class="fa fa-tag"></i> {{ blog.category }}</li>
+								</ul>
+								<h4 class="title"><a href="{{ blog.get_absolute_url }}">{{ blog.title|truncatechars:35 }}</a></h4>
+							</div>
+							<div class="bottom-box">
+								<a href="{{ blog.get_absolute_url }}" class="read-more">Read More <i class="fa fa-long-arrow-alt-right"></i></a>
+								<div class="comments">
+									<i class="fa fa-eye" aria-hidden="true"></i> {{ blog.views }}
+									<a href="{% url 'blog:like_post' blog.slug %}"><i class="fa fa-thumbs-up" aria-hidden="true"></i></a> {{ blog.likes }}
+									<a href="{% url 'blog:dislike_post' blog.slug %}"><i class="fa fa-thumbs-down" aria-hidden="true"></i></a> {{ blog.dislikes }}
+									<i class="fa fa-comments"></i> {{ blog.comments.all.count }}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endfor%}
+			</div>
+		</div>
+	</section>
+	<!--End News Section -->
+{% endif %}

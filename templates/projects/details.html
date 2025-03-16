@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ category }} - Fundly Limited {% endblock %}
+{% block content %}
+	<!--Project Details Start-->
+	<section class="project-details">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="project-details__top">
+						<div class="project-details__img"> <img src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}/static/images/resource/project-details.jpg{% endif %}" alt="{{ project.title }}" title="{{ project.title }}"> </div>
+					</div>
+				</div>
+			</div>
+			<div class="project-details__content">
+				<div class="row">
+					<div class="col-xl-8 col-lg-8">
+						<div class="project-details__content-left">
+							<h3 class="">Here to Know About {{ project }}</h3>
+							<p class="">{{ project.description|linebreaks }}</p>
+						</div>
+					</div>
+					<div class="col-xl-4 col-lg-4">
+						<div class="project-details__content-right">
+							<div class="project-details__details-box">
+								<div class="project-details__bg-shape"> </div>
+								<ul class="list-unstyled project-details__details-list">
+									<li>
+										<p class="project-details__client">Date</p>
+										<h4 class="project-details__name">{{ project.date_completed|default:'-' }}</h4>
+									</li>
+									<li>
+										<p class="project-details__client">Client</p>
+										<h4 class="project-details__name">{{ project.client|default:'-' }}</h4>
+									</li>
+									<li>
+										<p class="project-details__client">Website</p>
+										<h4 class="project-details__name"><a href="{{ project.website|default:'' }}">{{ project.website|default:'-' }}</a></h4>
+									</li>
+									<!-- <li>
+										<p class="project-details__client">Location</p>
+										<h4 class="project-details__name">New York, USA</h4>
+									</li> -->
+									<!-- <li>
+										<p class="project-details__client">Value</p>
+										<h4 class="project-details__name">$11,367</h4>
+									</li> -->
+									<li>
+										<div class="project-details__social"> 
+											<a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><i class="fab fa-twitter"></i></a> 
+											<a href="{{ about.facebook|default:'https://fb.com' }}"><i class="fab fa-facebook"></i></a> 
+											<a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><i class="fab fa-linkedin"></i></a> 
+											<a href="{{ about.instagram|default:'https://instagram.com/fundly_ltd/' }}"><i class="fab fa-instagram"></i></a> 
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-12">
+					<div class="project-details__pagination-box">
+						<ul class="project-details__pagination list-unstyled clearfix">
+							{% if previous_project %}
+								<li class="next">
+									<div class="icon"> <a href="{{ previous_project.get_absolute_url }}" aria-label="Previous"><i class="lnr lnr-icon-arrow-left"></i></a> </div>
+									<div class="content">Previous</div>
+								</li>
+							{% endif %}
+							<li class="count"><a href="#"></a></li>
+							<li class="count"><a href="#"></a></li>
+							<li class="count"><a href="#"></a></li>
+							<li class="count"><a href="#"></a></li>
+							{% if next_project %}
+								<li class="previous">
+									<div class="content">Next</div>
+									<div class="icon"> <a href="{{ next_project.get_absolute_url }}" aria-label="Previous"><i class="lnr lnr-icon-arrow-right"></i></a> </div>
+								</li>
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--Project Details End-->
+{% endblock %}

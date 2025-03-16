@@ -1,0 +1,114 @@
+<!-- Main Footer -->
+<footer class="main-footer">
+    <div class="bg-image"  style="background-image: url(/static/images/background/2.jpg)"></div>
+
+    <!--Widgets Section-->
+    <div class="widgets-section">
+        <div class="auto-container">
+            <div class="row">
+                <!--Footer Column-->
+                <div class="footer-column col-xl-3 col-lg-12 col-md-6 col-sm-12">
+                    <div class="footer-widget about-widget">
+                        <div class="logo"><a href="/"><img src="/static/images/logo.png" alt="" width="180"></a></div>
+                        <div class="text">Empowering contributions and elevating causes with seamless solutions</div>
+                        <ul class="social-icon-two">
+                            <li><a href="{{ about.twitter|default:'https://twitter.com/fundly_ltd' }}"><span class="fab fa-twitter"></span></a></li>
+                            <li><a href="{{ about.facebook|default:'https://fb.com' }}"><span class="fab fa-facebook-square"></span></a></li>
+                            <li><a href="{{ about.linkedin|default:'https://linkedin.com/company/fundly-ltd/' }}"><span class="fab fa-linkedin"></span></a></li>
+                            <li><a href="{{ about.youtube|default:'https://www.youtube.com/channel/UCkedAOBJuj9d0cvTKFzWqmA?sub_confirmation=1' }}"><span class="fab fa-youtube"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--Footer Column-->
+                <div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="footer-widget">
+                        <h3 class="widget-title">Explore</h3>
+                        <ul class="user-links">
+                            <li><a href="{% url 'about' %}">About Company</a></li>
+                            <li><a href="{% url 'blog:list' %}">News & Media</a></li>
+                            <li><a href="{% url 'users:team' %}">Meet Team</a></li>
+                            <li><a href="{% url 'faq' %}">FAQs</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!--Footer Column-->
+                <div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="footer-widget contact-widget">
+                        <h3 class="widget-title">Contact</h3>
+                        <div class="widget-content">
+                            <div class="text">
+                                {{ about.address|default:'JKUAT, Main Gate' }}
+                                <div class="contact-info-box">
+                                    <span class="icon lnr-icon-clock"></span>
+                                    <span class="title">Opened:</span>
+                                    Sun - Fri 24hrs
+                                </div>
+                            </div>
+                            <ul class="contact-info">
+                                <li><i class="fa fa-envelope"></i> <a href="mailto:{{ about.email|default:'support@fundly.co.ke' }}">{{ about.email|default:'support@fundly.co.ke' }}</a><br></li>
+                                <li><i class="fa fa-phone-square"></i> <a href="tel:{{ about.phone_number|default:'+254111724214' }}">{{ about.phone_number|default:'+254111724214' }}</a><br></li>
+                            </ul>
+                            <ul class="user-links mt-4">
+                                <li><a href="{% url 'contact' %}">Contact us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Footer Column-->
+                <div class="footer-column col-xl-3 col-lg-4 col-md-6 col-sm-12">
+                    <div class="footer-widget gallery-widget">
+                        <h3 class="widget-title">Gallery</h3>
+                        <div class="widget-content">
+                            <div class="outer clearfix">
+                                {% if teams %}
+                                    {% for team in teams %}
+                                        <figure class="image">
+                                            <a href="{{ team.get_absolute_url }}"><img src="{% if team.image %}{{ team.image.url }}{% else %}/static/images/resource/project-thumb-1.jpg{% endif %}" alt="{{ team.user.get_full_name|default:'No Name'}}"></a>
+                                        </figure>
+                                    {% endfor %}
+                                {% else %}
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-1.jpg" alt=""></a>
+                                    </figure>
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-2.jpg" alt=""></a>
+                                    </figure>
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-3.jpg" alt=""></a>
+                                    </figure>
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-4.jpg" alt=""></a>
+                                    </figure>
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-5.jpg" alt=""></a>
+                                    </figure>
+                                    <figure class="image">
+                                        <a href="#"><img src="/static/images/resource/project-thumb-6.jpg" alt=""></a>
+                                    </figure>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Footer Bottom-->
+		<div class="footer-bottom">
+			<div class="auto-container">
+				<div class="inner-container d-flex" style="background-color: unset;">
+					<div class="copyright-text text-white">© {{ current_year }} <a href="/">Fundly Limited</a>. All Rights Reserved</div>
+					
+					<ul class="ms-auto d-flex">
+						<li><a class="text-white" href="{% url 'policy' %}">Privacy Policy</a></li>
+						<li><a class="text-white mx-2" href="{% url 'terms' %}">Terms and Condition</i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+</footer>
+<!--End Main Footer -->

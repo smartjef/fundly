@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load crispy_forms_tags %}
+{% block title %}{{ title|default:'Contribution Pages' }} - Fundly{% endblock %}
+{% block content %}
+
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <div class="auto-container">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4>{{ title }}</h4>
+                        <p>{{ description|linebreaks|default:'' }}</p>
+                    </div>
+                    <div class="col-md-8">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{ form|crispy }}
+                            <button type="submit" class="theme-btn btn-style-one"><span class="btn-title">Submit</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

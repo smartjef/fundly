@@ -1,0 +1,62 @@
+<div class="sidebar">
+    <div class="sidebar__single sidebar__search">
+        <form action="{% url 'blog:list' %}" class="sidebar__search-form">
+            <input type="search" required name="q" placeholder="Search here">
+            <button type="submit"><i class="lnr-icon-search"></i></button>
+        </form>
+    </div>
+    {% if latest_posts %}
+    <div class="sidebar__single sidebar__post">
+        <h3 class="sidebar__title">Latest Posts</h3>
+        <ul class="sidebar__post-list list-unstyled">
+            {% for latest_post in latest_posts %}
+            <li>
+                <div class="sidebar__post-image"> <img src="{% if latest_post.front_image %}{{ latest_post.front_image.url }}{% else %}/static/images/resource/news-1.jpg{% endif %}" alt="{{ latest_post}}" title="{{ latest_post }}"> </div>
+                <div class="sidebar__post-content">
+                    <h3> <span class="sidebar__post-content-meta"><i
+                        class="fas fa-user-circle"></i>{{ latest_post.author.get_full_name|default:'No Name' }}</span> <a href="{{ latest_post.get_absolute_url }}">{{ latest_post.title|truncatechars:35 }}</a>
+                    </h3>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+    {% if categories %}
+        <div class="sidebar__single sidebar__category">
+            <h3 class="sidebar__title">Categories</h3>
+            <ul class="sidebar__category-list list-unstyled">
+                {% for category in categories %}
+                    <li><a href="{% url 'blog:list_by_category' category.slug %}">{{ category }}<span class="icon-right-arrow"></span></a> </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+    {% if tags %}
+        <div class="sidebar__single sidebar__tags">
+            <h3 class="sidebar__title">Tags</h3>
+            <div class="sidebar__tags-list"> 
+                {% for tag in tags %}
+                    <a href="{% url 'blog:list_by_tag' tag.slug %}" class="capitalize">{{ tag }}</a>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if recent_comments %}
+    <div class="sidebar__single sidebar__comments">
+        <h3 class="sidebar__title">Recent Comments</h3>
+        <ul class="sidebar__comments-list list-unstyled">
+            {% for recent_comment in recent_comments %}
+            <li>
+                <div class="sidebar__comments-icon"> <i class="fas fa-comments"></i> </div>
+                <div class="sidebar__comments-text-box">
+                    <p>{{ recent_comment.author.get_full_name|default:'No Name' }} commenter on 
+                        {{ recent_comment.post|truncatechars:25 }}
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>

@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% block title %}Testimonials - Fundly Limited{% endblock %}
+{% block meta %}
+<meta name="title" content="Terms and Conditions - Fundly Limited">
+<meta name="keywords" content="testimonials, customer reviews, success stories, Fundly Limited, products, services, feedback">
+<meta name="description" content="Read real-life success stories and customer reviews about Fundly Limited's products and services on this page.">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css" />
+{% endblock %}
+{% block content %}
+{% if testimonies %}
+<!-- Testimonial Section -->
+<section>
+	<div class="container">
+		<div class="row">
+			{% for testimony in testimonies %}
+			<!-- Testimonial Carousel -->
+			<div class="col-lg-6 col-md-12 col-sm-12">
+				<div class="testimonial-block-four mb-md-30">
+					<div class="inner-box">
+						<div class="content-box">
+							<span class="icon icon-quote"></span>
+							<div class="rating">
+								{% for star in "*****" %}
+									{% if forloop.counter <= testimony.rating %}
+										<i class="fas fa-star"></i>
+									{% else %}
+										<i class="far fa-star"></i>
+									{% endif %}
+								{% endfor %}
+							</div>
+							<div class="text"><i class="fa fa-star-o" aria-hidden="true"></i>{{ testimony.message }}</div>
+						</div>
+						<div class="info-box">
+							<figure class="thumb">
+								<img src="
+									{% if testimony.author.profile.image %}
+										{{ testimony.author.profile.image.url }}
+									{% else %}
+										{% if testimony.author.profile.gender == 'male' %}
+											/static/sb/img/undraw_profile_2.svg
+										{% elif testimony.author.profile.gender == 'female' %}
+											/static/sb/img/undraw_profile_1.svg
+										{% else %}
+											/static/sb/img/undraw_profile.svg
+										{% endif %}
+									{% endif %}" alt="{{ testimony.name }}" title="{{ testimony.name }}">
+							</figure>
+							<h5 class="name">{{ testimony.author.get_full_name|default:'No Name' }}</h5>
+							<span class="designation">{{ testimony.position }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		
+</section>
+<!-- Form Column -->
+<div class="row bg-dark justify-content-center p-4">
+	<div class="form-column col-lg-4 col-md-6 col-sm-12">
+		<div class="form-bg" style="background-image: url(/static/images/background/3.jpg)"></div>
+		<div class="inner-column">
+			<!-- Contact Form -->
+			<div class="contact-form wow fadeInLeft">
+				<div class="title-box">
+					<span class="sub-title">Ratings</span>
+					<h3>Write a Review</h3>
+				</div>
+
+				<!--Contact Form-->
+				<form method="post" action="{% url 'review' %}" id="contact-form">
+					{% csrf_token %}
+					<div class="form-group">
+						<div id="rating"></div>
+						<input type="hidden" name="rating" id="rating-input" required>
+					</div>
+					<div class="form-group">
+						<input type="text" name="position" placeholder="Position" required>
+					</div>
+
+					<div class="form-group">
+						<textarea name="message" placeholder="Write a Message" required></textarea>
+					</div>
+
+					<div class="form-group">
+						<button class="theme-btn btn-style-one w-100" type="submit" name="submit-form"><span
+								class="btn-title">Leave a Review</span></button>
+					</div>
+				</form>
+			</div>
+			<!--End Contact Form -->
+
+		</div>
+	</div>
+</div>
+<!-- End Testimonial Section -->
+{% endif %}
+{% endblock %}
+
+{% block js %}
+<!-- Place this script at the bottom of the body tag -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
+<script>
+    $(function() {
+        $("#rating").rateYo({
+            rating: 5, // Set the default rating here
+            fullStar: true, // Enable full stars
+            onSet: function(rating, rateYoInstance) {
+                // Set the value of the hidden input field when the rating is changed
+                $("#rating-input").val(rating);
+            }
+        });
+    });
+</script>
+{% endblock %}

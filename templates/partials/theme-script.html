@@ -1,0 +1,60 @@
+
+<script>
+    // Function to toggle the theme
+    function toggleTheme() {
+      var link = document.getElementById("themeLink");
+      var switchInput = document.getElementById("flexSwitchCheckChecked");
+
+      if (switchInput.checked) {
+        // Switch to Dark Theme
+        link.setAttribute("href", "/static/css/style-dark.css");
+        switchInput.previousElementSibling.innerHTML = "Light Theme";
+      } else {
+        // Switch to Light Theme
+        link.setAttribute("href", "");
+        switchInput.previousElementSibling.innerHTML = "Dark Theme";
+      }
+    }
+
+    // Add event listener to the switch
+    var switchInput = document.getElementById("flexSwitchCheckChecked");
+    switchInput.addEventListener("change", toggleTheme);
+  </script>
+
+  <script>
+    var url = 'https://wati-integration-service.clare.ai/ShopifyWidget/shopifyWidget.js?42866';
+    var s = document.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = url;
+    var options = {
+        "enabled": true,
+        "chatButtonSetting": {
+            "backgroundColor": "#ffaa16",
+            "ctaText": "Message Us",
+            "borderRadius": "25",
+            "marginLeft": "0",
+            "marginBottom": "50",
+            "marginRight": "50",
+            "position": "left"
+        },
+        "brandSetting": {
+            "brandName": "Fundly Limited",
+            "brandSubTitle": "Efficient and reliable technology services",
+            "brandImg": "https://lh5.googleusercontent.com/-_ZSW3LBRzm4/AAAAAAAAAAI/AAAAAAAAAAA/lf0WVdFQu4k/s44-p-k-no-ns-nd/photo.jpg",
+            "welcomeText": "Welcome to the future of technology at Fundly Limited, where we're constantly pushing boundaries to bring you the most efficient and reliable solutions.",
+            "messageText": " %0A %0AHello, I have a question about ",
+            "backgroundColor": "#ffaa16",
+            "ctaText": "Start Chat",
+            "borderRadius": "25",
+            "autoShow": false,
+            "phoneNumber": "254748155432"
+        }
+    };
+    s.onload = function () {
+        CreateWhatsappChatWidget(options);
+    };
+    var x = document.getElementsByTagName('script')[0];
+    x.parentNode.insertBefore(s, x);
+</script>
+

@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - {{ category }} {% endblock %}
+{% block content %}
+<div class="container-xl px-4 mt-4">
+    <!-- Account page navigation-->
+    <div class="row">
+        <div class="col-xl-4">
+            <!-- Profile picture card-->
+            <div class="card mb-4 mb-xl-0">
+                <div class="card-header">Profile Picture</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <img src="
+                        {% if request.user.profile.image %}
+                            {{ request.user.profile.image.url }}
+                        {% else %}
+                            {% if request.user.profile.gender == 'male' %}
+                                /static/sb/img/undraw_profile_2.svg
+                            {% elif request.user.profile.gender == 'female' %}
+                                /static/sb/img/undraw_profile_1.svg
+                            {% else %}
+                                /static/sb/img/undraw_profile.svg
+                            {% endif %}
+                        {% endif %}" alt="{{ testimony.name }}" title="{{ testimony.name }}">
+                    <!-- Profile picture help block-->
+                    <div class="small font-italic text-muted mb-4">JPG or PNG no larger than 5 MB</div>
+                    <h3>{{ request.user.get_full_name|default:'No Name' }}</h3>
+                    <!-- Profile picture upload button-->
+                    <form action="{% url 'users:update_pic' %}" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" name="image" id="" class="form form-control form-control-sm mb-2">
+                        <button class="btn-theme btn-style-one" type="submit">Update Profile Pic</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card mb-4 mb-xl-0 mt-2">
+                <div class="card-header">Shortcut</div>
+                <div class="card-body text-center">
+                    <!-- Profile picture image-->
+                    <ul class="text-left">
+                        <li><a href="{% url 'account_change_password' %}" class="nav-link text-dark">Change Password</a></li>
+                        <li><a href="{% url 'account_email' %}" class="nav-link text-dark">Manage Emails</a></li>
+                        <li><a href="{% url 'socialaccount_connections' %}" class="nav-link text-dark">Manage Connected Accounts</a></li>
+                        <li><a href="{% url 'account_logout' %}" class="nav-link text-dark">Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-8">
+            <!-- Account details card-->
+            <div class="card mb-4">
+                <div class="card-header">Account Details</div>
+                <div class="card-body">
+                    <form method="POST">
+                        {% csrf_token %}
+                        <!-- Form Group (username)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Username</label>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Enter your username" value="{{ request.user }}" name="username" required>
+                        </div>
+                        <!-- Form Row-->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (first name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputFirstName">First name</label>
+                                <input class="form-control" id="inputFirstName" type="text" placeholder="Enter your first name" value="{{ request.user.first_name }}" name="fname" required>
+                            </div>
+                            <!-- Form Group (last name)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLastName">Last name</label>
+                                <input class="form-control" id="inputLastName" type="text" placeholder="Enter your last name" value="{{ request.user.last_name }}" name="lname" required>
+                            </div>
+                        </div>
+                        <!-- Form Row        -->
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (Email)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputOrgName">Gender</label>
+                                <select name="gender" id="inputOrgName" class="form-control">
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <!-- Form Group (location)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLocation">Phone Number</label>
+                                <input class="form-control" id="inputLocation" type="tel" placeholder="Enter your Phonenumber" value="{{ request.user.profile.phone_number }}" name="phone_number" required>
+                            </div>
+                        </div>
+                        <!-- Form Group (email address)-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputEmailAddress">Email address</label>
+                            <input class="form-control" id="inputEmailAddress" type="email" placeholder="Enter your email address" value="{{ request.user.email }}" name="email" required>
+                        </div>
+                        <!-- Form Row-->
+                        <h4>Social accounts</h4>
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (Facebook)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Facebook</label>
+                                <input class="form-control" id="inputPhone" type="url" placeholder="Enter Facebook url" value="{{ request.user.profile.facebook|default:'' }}"  name="facebook">
+                            </div>
+                            <!-- Form Group (Instagram)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputInstagram">Instagram</label>
+                                <input class="form-control" id="inputInstagram" type="text" name="instagram" placeholder="Enter your Instagram" value="{{ request.user.profile.instagram|default:'' }}">
+                            </div>
+                            <!-- Form Group (Twitter)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Twitter</label>
+                                <input class="form-control" id="inputPhone" type="url" placeholder="Enter Twitter url" value="{{ request.user.profile.twitter|default:'' }}" name="twitter">
+                            </div>
+                            <!-- Form Group (LinkedIn)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputLinkedIn">LinkedIn</label>
+                                <input class="form-control" id="inputLinkedIn" type="text" name="linkedin" placeholder="Enter your LinkedIn" value="{{ request.user.profile.linkedin|default:'' }}">
+                            </div>
+                        </div>
+                        <h4>Preference</h4>
+                        <div class="row gx-3 mb-3">
+                            <!-- Form Group (Facebook)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputPhone">Language</label>
+                                <select name="language" id="inputOrgName" class="form-control">
+                                    <option value="en">English</option>
+                                    <option value="sw">Kiswahili</option>
+                                </select>
+                            </div>
+                            <!-- Form Group (Instagram)-->
+                            <div class="col-md-6">
+                                <label class="small mb-1" for="inputInstagram">System/Device Theme</label>
+                                <select name="theme" id="inputOrgName" class="form-control">
+                                    <option value="light">Light Theme</option>
+                                    <option value="dark">Dark Theme</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- Save changes button-->
+                        <button class="btn-theme btn-style-one" type="submit">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block title %}{{ title|default:'Contribution Pages' }} - Fundly{% endblock %}
+{% block content %}
+
+        <!-- Featured Products -->
+        <section class="featured-products">
+            <span class="bg-shape"></span>
+
+            <div class="auto-container">
+                {% include  'fundly/partial.html' %}
+                <!--MixitUp Galery-->
+                <div class="mixitup-gallery">
+
+                    <div class="filter-list row">
+                        {% if pages %}
+                        {% for page in pages %}
+                            <!--Product Block-->
+                            <div class="product-block all mix pantry fruit col-lg-3 col-md-6 col-sm-12">
+                                <div class="inner-box"> 
+                                    <span class="badge bg-{{ page.status.class_name }}" style="position: absolute; top: 10px; z-index:999; left:10px;">{{ page.status.name }}</span>
+                                    <div class="image"><a href="{{ page.get_absolute_url }}"><img src="{% if page.photo %}{{ page.photo.url }}{% else %}/static/images/resource/feature-bg-3.jpg{% endif %}" alt=""/></a></div>
+                                    <div class="content text-start fs-10">
+                                        <h4 class="font-size-16"><a href="{{ page.get_absolute_url }}">{{ page.purpose|truncatechars:60|default:'Unknown' }}</a></h4>
+                                        <span class="price font-size-14">Target: KES {{ page.target|intcomma|default:0 }}</span>
+                                        <span class="font-size-12">Progress({{ page.get_progress|default:0 }}%): </span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning text-dark" role="progressbar" aria-valuenow="{{ page.get_progress }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ page.get_progress|default:0 }}%;">
+                                                <span>{{ page.get_progress|default:0 }}%</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% if page.status.name == 'Active' %}
+                                    <div class="icon-box">
+                                        <a href="{{ page.get_contribute_url }}" class="ui-btn like-btn" title="Contribute"><i class="fas fa-hand-holding-heart"></i></a>
+                                        <a href="{{ page.get_contribute_url_}}" class="ui-btn add-to-cart" title="Share"><i class="fa fa-share-alt"></i></a>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                        {% else %}
+                            <p> No pages found </p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- End Featured Products -->
+{% endblock %}

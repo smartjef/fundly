@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} - {{ category }} - VSech Limited{% endblock %}
+{% block content %}
+	<!--Start Services Details-->
+	<section class="services-details">
+		<div class="container">
+			<div class="row">
+				<!--Start Services Details Sidebar-->
+				<div class="col-xl-4 col-lg-4">
+					<div class="service-sidebar">
+						<!--Start Services Details Sidebar Single-->
+						<div class="sidebar-widget service-sidebar-single">
+							<div class="service-sidebar wow fadeInUp"
+								data-wow-delay="0.1s" data-wow-duration="1200m">
+							    <div class="service-list">
+									{% if services %}
+									<ul>
+										{% for ser in services %}
+											<li><a href="{{ ser.get_absolute_url }}" class="{% if service == ser %}current{% endif %}"><i class="fas fa-angle-right"></i><span>{{ ser }}</span></a></li>
+										{% endfor %}
+									</ul>
+									{% endif %}
+							    </div>
+							</div>
+						</div>
+
+						<!--End Services Details Sidebar Single-->
+						<div class="sidebar-widget banner-widget">
+						<div class="widget-content" style="background-image: url(/static/images/resource/contact.jpg);">
+							<div class="shape" style="background-image: url(/static/images/resource/overlay-shape.png);"></div>
+							<div class="content-box">
+							<div class="icon-box">
+								<i class="lnr lnr-icon-pie-chart"></i>
+							</div>
+							<h3>Request this service</h3>
+							<a href="mailto:support@fundly.co.ke?subject=Requesting for {{ service.title }}" class="theme-btn btn-style-two bg-light"><span class="btn-title text-black"> Request</span></a>
+							</div>
+						</div>
+						</div>
+
+						<!--Start Services Details Sidebar Single-->
+						<div class="sidebar-widget service-sidebar-single mt-5">
+							<div class="service-sidebar-single-btn wow fadeInUp"
+								data-wow-delay="0.5s" data-wow-duration="1200m">
+								<a href="{% url 'docs' %}" class="theme-btn btn-style-one d-grid" download><span class="btn-title"><span class="fas fa-file-pdf"></span> View Documents</span></a>
+							</div>
+						</div>
+						<!--End Services Details Sidebar Single-->
+					</div>
+				</div>
+				<!--End Services Details Sidebar-->
+
+				<!--Start Services Details Content-->
+				<div class="col-xl-8 col-lg-8">
+					<div class="services-details__content">
+						<img src="{% if service.cover_image %}{{ service.cover_image.url }}{% else %}/static/images/resource/service-details.jpg{% endif %}" alt="{{ service }}" title="{{ service }}"/>
+						<h2 class="mt-4">{{ service.title }}</h2>
+						<p>{{ service.description|linebreaks|default:'No Description' }}</p>
+						<div class="content mt-40">
+							<div class="text">
+							  <h3>Service Center</h3>
+							  <p>Our service center offers exceptional solutions to meet your needs. We strive to provide a seamless experience, ensuring customer satisfaction and peace of mind.</p>
+							</div>
+							<div class="feature-list">
+							  <div class="row clearfix">
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Efficient Service Delivery</h6>
+								  </div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Secure Transactions</h6>
+								  </div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Quality Products</h6>
+								  </div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Thorough Inspections</h6>
+								  </div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Reliable Systems</h6>
+								  </div>
+								</div>
+								<div class="col-lg-6 col-md-6 col-sm-12 column">
+								  <div class="single-item">
+									<div class="icon-box"><i class="fas fa-check-circle"></i></div>
+									<h6 class="title">Comprehensive Assessments</h6>
+								  </div>
+								</div>
+							  </div>
+							</div>
+						  </div>
+						
+							{% if service.faqs.all %}
+
+							<div class="mt-25">
+							<h3>Frequently Asked Questions</h3>
+							<p>Explore some commonly asked questions about this service. If you have any additional inquiries, feel free to reach out to our team.</p>
+							<ul class="accordion-box wow fadeInRight">
+								{% for faq in service.faqs.all %}
+								<!--Block-->
+								<li class="accordion block">
+									<div class="acc-btn">{{ faq.question }}
+										<div class="icon fa fa-plus"></div>
+									</div>
+									<div class="acc-content">
+										<div class="content">
+											<div class="text">{{ faq.answer|linebreaks }}</div>
+										</div>
+									</div>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+					</div>
+				</div>
+				<!--End Services Details Content-->
+			</div>
+		</div>
+	</section>
+	<!--End Services Details-->
+{% endblock %}
