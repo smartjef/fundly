@@ -48,10 +48,9 @@ def contribute(request, slug):
             phone_number = request.POST.get('phone')
             amount = int(request.POST.get('amount'))
             pledge_id = request.POST.get('pledge')
-            if pledge_id:
-                pledge_id = int(pledge_id)
             account_no = f"{page.account_no}#{request.user.id}"
             if pledge_id:
+                pledge_id = int(pledge_id)
                 account_no = f"{page.account_no}#{request.user.id}#{pledge_id}"
             account_reference = account_no
             transaction_desc = f'Contribution to  Campaing #{page.id}'
