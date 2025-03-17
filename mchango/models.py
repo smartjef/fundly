@@ -35,13 +35,13 @@ class ContributionPage(models.Model):
     
     def save(self, *args, **kwargs):
         # validate target
-        if self.target < 50000:
-            raise ValueError('Target must be at least 50,000')
+        if self.target < 500:
+            raise ValueError('Target must be at least 500')
         # validate deadline
-        if self.deadline < timezone.now().date():
-            raise ValueError('Deadline must be in the future')
         
         if not self.pk:
+            if self.deadline < timezone.now().date():
+                raise ValueError('Deadline must be in the future')
             self.account_no = str(uuid.uuid4()).upper().replace('-', '')[:8]
             self.slug = str(uuid.uuid4()).lower().replace('-', '')
         super(ContributionPage, self).save(*args, **kwargs)
@@ -78,7 +78,7 @@ class ContributionPage(models.Model):
     
     def get_progress(self):
         target = self.target
-        balance = self.get_balance()
+        balance = Decimal(self.get_total_contributions())
         return round((balance / target) * 100, 0) or 0
     
     def getId(self):
@@ -108,9 +108,10 @@ class Pledge(models.Model):
         return f"{self.user.first_name} pledges KES {self.amount}"
     
     def save(self, *args, **kwargs):
-        if self.to_pay_by < timezone.now().date():
-            raise ValueError('To pay by must be in the future')
-        self.balance = self.amount
+        if not self.pk:
+            if self.to_pay_by < timezone.now().date():
+                raise ValueError('To pay by must be in the future')
+            self.balance = self.amount
         super(Pledge, self).save(*args, **kwargs)
 
     class Meta:
@@ -120,15 +121,16 @@ class Pledge(models.Model):
 
 class Transaction(models.Model):
     trans_type = models.CharField(max_length=50, choices=[('Contribution', 'Contribution'), ('Pledge', 'Pledge'), ('Withdrawal', 'Withdrawal'), ('Deposit', 'Deposit')], default='Contribution')
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='transactions')
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='transactions', blank=True, null=True)
     phone = models.CharField(max_length=15)
     mpesa_ref_id = models.CharField(max_length=50)
-    date = models.DateTimeField()
+    date = models.DateTimeField(auto_now=True)
     amount = models.DecimalField(max_digits=12, decimal_places=2)
     org_balance = models.DecimalField(max_digits=12, decimal_places=2)
     pg_balance = models.DecimalField(max_digits=12, decimal_places=2)
     page = models.ForeignKey(ContributionPage, on_delete=models.CASCADE, related_name='transactions')
     pledge = models.ForeignKey(Pledge, on_delete=models.CASCADE, related_name='transactions', blank=True, null=True)
+    first_name = models.CharField(max_length=100, blank=True, null=True)
     meta = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

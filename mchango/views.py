@@ -47,7 +47,11 @@ def contribute(request, slug):
             cl = MpesaClient()
             phone_number = request.POST.get('phone')
             amount = int(request.POST.get('amount'))
-            account_reference = page.account_no
+            pledge_id = int(request.POST.get('pledge'))
+            account_no = f"{page.account_no}#{request.user.id}"
+            if pledge_id:
+                account_no = f"{page.account_no}#{request.user.id}#{pledge_id}"
+            account_reference = account_no
             transaction_desc = f'Contribution to  Campaing #{page.id}'
             callback_url = MPESA_C2B_RESULT_URL
             response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
@@ -72,7 +76,8 @@ def contribute(request, slug):
             'title': f"Contribute to Page {page.getId()}",
             'page': page,
             'form': form,
-            'paybill': MPESA_SHORTCODE
+            'paybill': MPESA_SHORTCODE,
+            'my_account_no': f'{page.account_no}#{request.user.id}'
         }
         return render(request, 'fundly/contribute.html', context)
     except ObjectDoesNotExist:

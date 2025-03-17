@@ -52,73 +52,60 @@
         </div>
         <div class="team-details__bottom pt-100">
             <div class="row">
-                <!-- Vertical Tabs -->
-                <div class="col-md-3">
-                    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist">
-                        <button class="nav-link theme-btn btn-style-one text-dark active" id="contribute-tab" data-bs-toggle="pill" data-bs-target="#contribute" type="button" role="tab" aria-controls="contribute" aria-selected="true">Contribute</button>
-                        <button class="nav-link theme-btn btn-style-two text-dark" id="pledge-tab" data-bs-toggle="pill" data-bs-target="#pledge" type="button" role="tab" aria-controls="pledge" aria-selected="false">Pledge</button>
-                    </div>
-                </div>
-    
-                <!-- Tab Content -->
-                <div class="col-md-9">
+                 <!-- Tab Content -->
+                <div class="col-12">
                     <div class="tab-content" id="v-pills-tabContent">
                         <!-- Contribute Tab -->
                         <div class="tab-pane fade show active" id="contribute" role="tabpanel" aria-labelledby="contribute-tab">
                             <!-- Horizontal Tabs inside Contribute -->
                             <ul class="nav nav-tabs" id="contribute-sub-tabs" role="tablist">
                                 <li class="nav-item">
-                                    <button class="nav-link active theme-btn btn-style-three" id="stk-push-tab" data-bs-toggle="tab" data-bs-target="#stk-push" type="button" role="tab" aria-controls="stk-push" aria-selected="true">STK Push</button>
+                                    <button class="nav-link active theme-btn btn-style-three" id="stk-push-tab" data-bs-toggle="tab" data-bs-target="#stk-push" type="button" role="tab" aria-controls="stk-push" aria-selected="true">Contribute</button>
                                 </li>
                                 <li class="nav-item">
-                                    <button class="nav-link theme-btn btn-style-two text-dark" id="paybill-tab" data-bs-toggle="tab" data-bs-target="#paybill" type="button" role="tab" aria-controls="paybill" aria-selected="false">Pay via Paybill</button>
+                                    <button class="nav-link theme-btn btn-style-two text-dark" id="paybill-tab" data-bs-toggle="tab" data-bs-target="#paybill" type="button" role="tab" aria-controls="paybill" aria-selected="false">Pledge</button>
                                 </li>
                             </ul>
                     
                             <!-- Horizontal Tab Content -->
                             <div class="tab-content mt-3">
                                 <div class="tab-pane fade show active" id="stk-push" role="tabpanel" aria-labelledby="stk-push-tab">
-                                    <h4>STK Push Payment</h4>
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        <div class="mb-3">
-                                            <label for="phone" class="form-label">Phone Number<span class="text-danger fw-bold">*</span></label>
-                                            <input type="text" class="form-control" id="phone" name="phone" required value="{{ request.user.profile.phone_number|default:'' }}" placeholder="Enter your M-Pesa phone number">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <h4>STK Push Payment</h4>
+                                            <form method="POST">
+                                                {% csrf_token %}
+                                                <div class="mb-3">
+                                                    <label for="phone" class="form-label">Phone Number<span class="text-danger fw-bold">*</span></label>
+                                                    <input type="text" class="form-control" id="phone" name="phone" required value="{{ request.user.profile.phone_number|default:'' }}" placeholder="Enter your M-Pesa phone number">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="amount" class="form-label">Amount<span class="text-danger fw-bold">*</span></label>
+                                                    <input type="number" class="form-control" id="amount" required name="amount" placeholder="Enter amount">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="pledge" class="form-label">Pledge ID(Optional)</label>
+                                                    <input type="number" class="form-control" id="pledge" name="pledge" placeholder="Enter Pledge ID">
+                                                    <span class="small">Use when honoring a pledge</span>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Pay Now</button>
+                                            </form>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="amount" class="form-label">Amount<span class="text-danger fw-bold">*</span></label>
-                                            <input type="number" class="form-control" id="amount" required name="amount" placeholder="Enter amount">
+                                        <div class="col-md-4">
+                                            <h4>Pay via Paybill</h4>
+                                            <p>Use the Paybill number below to send your contribution:</p>
+                                            <ul>
+                                                <li><strong>Paybill:</strong> <span class="badge bg-success">{{ paybill|default:'123456' }}</span></li>
+                                                <li><strong class="fw-bold">For Contribution use:</strong></li>
+                                                <li><strong>Account Number:</strong> <span class="badge bg-success">{{ my_account_no }}</span></li>
+                                                <li><strong class="fw-bold">For Pledge use:</strong> {{ page.name }}</li>
+                                                <li><strong>Account Number:</strong> <span class="badge bg-success">{{ my_account_no }}#{pledge_id}</span> e.g <span class="badge bg-success">{{ my_account_no }}#1</span> for pledge id 1</li>
+                                            </ul>
                                         </div>
-                                        <div class="mb-3">
-                                            <label for="pledge" class="form-label">Pledge ID(Optional)</label>
-                                            <input type="number" class="form-control" id="pledge" name="pledge" placeholder="Enter Pledge ID">
-                                            <span class="small">Use when honoring a pledge</span>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Pay Now</button>
-                                    </form>
+                                    </div>
                                 </div>
                     
                                 <div class="tab-pane fade" id="paybill" role="tabpanel" aria-labelledby="paybill-tab">
-                                    <h4>Pay via Paybill</h4>
-                                    <p>Use the Paybill number below to send your contribution:</p>
-                                    <ul>
-                                        <li><strong>Paybill:</strong> {{ paybill|default:'123456' }}</li>
-                                        <li><strong>Account Number:</strong> {{ page.account_no }}</li>
-                                    </ul>
-                                    <p>After payment, enter your M-Pesa Ref ID below:</p>
-                                    <form method="POST">
-                                        {% csrf_token %}
-                                        <div class="mb-3">
-                                            <label for="mpesa_ref_id" class="form-label">M-Pesa Ref ID<span class="text-danger fw-bold">*</span></label>
-                                            <input type="text" class="form-control" id="mpesa_ref_id" name="mpesa_ref_id" required placeholder="Enter M-Pesa M-Pesa Ref ID">
-                                        </div>
-                                        <div class="mb-3">
-                                            <label for="pledge" class="form-label">Pledge ID(Optional)</label>
-                                            <input type="number" class="form-control" id="pledge" name="pledge" placeholder="Enter Pledge ID">
-                                            <span class="small">Use when honoring a pledge</span>
-                                        </div>
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                    </form>
                                 </div>
                             </div>
                         </div>

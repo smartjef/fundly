@@ -1,6 +1,6 @@
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from .models import ContributionPage, Pledge
+from .models import ContributionPage, Pledge, Transaction
 from main.helper  import send_sms
 
 @receiver(post_save, sender=ContributionPage)
@@ -27,11 +27,28 @@ def send_sms_on_pledge_creation(sender, instance, created, **kwargs):
         owner_name = instance.page.user.first_name
 
         if pledger_phone and pledger_name:
-            message_pledger = f"Dear {pledger_name}, Your pledge of KES. {instance.amount}(ID: {instance.id}) has been recorded successfully! Kindly honor it by {instance.to_pay_by}. Thank you in advance!\nRegards,\n{owner_name}\n"
+            message_pledger = f"Dear {pledger_name}, Your pledge of Ksh. {instance.amount}(ID: {instance.id}) has been recorded successfully! Kindly honor it by {instance.to_pay_by}. Thank you in advance!\nRegards,\n{owner_name}\n"
             send_sms(pledger_phone, message_pledger)
 
         if owner_phone and owner_name:
-            message_owner = f"Dear {owner_name}, {pledger_name} has pledged KES. {instance.amount} to be paid by {instance.to_pay_by}."
+            message_owner = f"Dear {owner_name}, {pledger_name} has pledged Ksh. {instance.amount} to be paid by {instance.to_pay_by}."
             send_sms(owner_phone, message_owner)
 
+@receiver(post_save, sender=Transaction)
+def send_sms_on_pledge_creation(sender, instance, created, **kwargs):
+    """Sends an SMS when a new Transaction is created."""
+    if created and instance.trans_type == 'Contribution':
+        phone = instance.phone
+        owner_phone = instance.page.user.profile.phone_number
+        name = instance.user.first_name
+        owner_name = instance.page.user.first_name
 
+        if phone and name:
+            message = f"Dear {name}, Thank you for your contribution. Well Received!\nRegards,\n{owner_name}\n"
+            send_sms(phone, message)
+
+        if owner_phone and owner_name:
+            message_owner = f"Dear {owner_name}, You've received {name}'s contribution of Ksh. {instance.amount}. MPESA Ref: {instance.mpesa_ref_id}. Balance: Ksh {instance.pg_balance}"
+            send_sms(owner_phone, message_owner)
+    else:
+        print("SMS not sent. Transaction Type is not applicable.")

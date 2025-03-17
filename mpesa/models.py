@@ -39,7 +39,7 @@ class MpesaC2B(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"C2B Transaction {self.transaction_id}"
+        return f"C2B Transaction {self.trans_id}"
 
 
 class MpesaB2C(models.Model):
@@ -64,4 +64,4 @@ class MpesaB2C(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"B2C Transaction {self.transaction_id}"
+        return f"B2C Transaction {self.trans_id}"
