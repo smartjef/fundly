@@ -48,7 +48,7 @@ def send_sms_on_pledge_creation(sender, instance, created, **kwargs):
             send_sms(phone, message)
 
         if owner_phone and owner_name:
-            message_owner = f"Dear {owner_name}, You've received {name}'s contribution of Ksh. {instance.amount}. MPESA Ref: {instance.mpesa_ref_id}. Balance: Ksh {instance.pg_balance}"
+            message_owner = f"Dear {owner_name}, You've received {name}'s contribution of Ksh. {instance.amount}. MPESA Ref: {instance.mpesa_ref_id}. Balance: Ksh {instance.page.get_total_contributions() or 0}"
             send_sms(owner_phone, message_owner)
     else:
         print("SMS not sent. Transaction Type is not applicable.")

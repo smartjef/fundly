@@ -70,7 +70,7 @@ def contribute(request, slug):
                 stk.save()
                 messages.success(request, response_data['ResponseDescription'])
             else:
-                messages.error(request, "An error occurred. Please try again later")   
+                messages.error(request, f"An error occurred. Please try again later\n{response.text}")   
             return redirect('mchango:dashboard', pk=page.id, slug=page.slug)
         
         context = {
