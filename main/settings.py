@@ -12,8 +12,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     '13.245.109.191',
-    'www.fundly.co.ke',
-    'fundly.co.ke',
+    'www.fundly.lengoapp.co.ke',
+    'fundly.lengoapp.co.ke',
 ]
 
 ADMINS = [
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'blog.apps.BlogConfig',
     'api.apps.ApiConfig',
     'mchango.apps.MchangoConfig',
+    'mpesa.apps.MpesaConfig',
 
     #add allauth configuration
     'allauth',
@@ -170,7 +171,7 @@ ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS = True
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_CONFIRMATION_ANONYMOUS_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
-ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 ACCOUNT_EMAIL_MAX_LENGTH = 200
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_CHANGE_EMAIL = True
@@ -286,3 +287,6 @@ MPESA_INITIATOR_USERNAME = os.getenv('MPESA_INITIATOR_USERNAME')
 # Plaintext password for initiator (to be used in B2C, B2B, AccountBalance and TransactionStatusQuery Transactions)
 
 MPESA_INITIATOR_SECURITY_CREDENTIAL = os.getenv('MPESA_INITIATOR_PASSWORD')
+
+MPESA_C2B_RESULT_URL = os.getenv('MPESA_C2B_RESULT_URL')
+MPESA_B2C_RESULT_URL = os.getenv('MPESA_B2C_RESULT_URL')

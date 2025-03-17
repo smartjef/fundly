@@ -21,6 +21,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('v-s/', admin.site.urls),
     path('blogs/', include('blog.urls')),
+    path('m/', include('mpesa.urls')),
     path('projects/', include('project.urls')),
     path('services/', include('service.urls')),
     path('users/', include('users.urls')),

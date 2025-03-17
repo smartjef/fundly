@@ -42,7 +42,7 @@ class ContributionPage(models.Model):
             raise ValueError('Deadline must be in the future')
         
         if not self.pk:
-            self.account_no = str(uuid.uuid4()).upper().replace('-', '')[:20]
+            self.account_no = str(uuid.uuid4()).upper().replace('-', '')[:8]
             self.slug = str(uuid.uuid4()).lower().replace('-', '')
         super(ContributionPage, self).save(*args, **kwargs)
 

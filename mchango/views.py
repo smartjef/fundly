@@ -4,7 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from .forms import ContributionPageForm, PledgeForm
+from mpesa.models import MpesaSTK
 from django.views.decorators.http import require_POST
+from main.settings import MPESA_SHORTCODE, MPESA_C2B_RESULT_URL
 from django_daraja.mpesa.core import MpesaClient
 
 # Create your views here.
@@ -46,17 +48,31 @@ def contribute(request, slug):
             phone_number = request.POST.get('phone')
             amount = int(request.POST.get('amount'))
             account_reference = page.account_no
-            transaction_desc = f'Contribution to  Campaing {page.getId()}'
-            callback_url = 'https://api.darajambili.com/express-payment'
+            transaction_desc = f'Contribution to  Campaing #{page.id}'
+            callback_url = MPESA_C2B_RESULT_URL
             response = cl.stk_push(phone_number, amount, account_reference, transaction_desc, callback_url)
-            print(response)
-            messages.success(request, "STK Push Initiated Successfully!")
+            if response.status_code == 200:
+                response_data = response.json()
+                stk = MpesaSTK(
+                    user=request.user,
+                    page=page,
+                    result_desc=response_data['ResponseDescription'],
+                    result_code=response_data['ResponseCode'],
+                    merchant_request_id=response_data['MerchantRequestID'],
+                    checkout_request_id=response_data['CheckoutRequestID'],
+                    phonenumber=phone_number,
+                )
+                stk.save()
+                messages.success(request, response_data['ResponseDescription'])
+            else:
+                messages.error(request, "An error occurred. Please try again later")   
             return redirect('mchango:dashboard', pk=page.id, slug=page.slug)
         
         context = {
             'title': f"Contribute to Page {page.getId()}",
             'page': page,
-            'form': form
+            'form': form,
+            'paybill': MPESA_SHORTCODE
         }
         return render(request, 'fundly/contribute.html', context)
     except ObjectDoesNotExist:
