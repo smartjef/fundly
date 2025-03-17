@@ -44,7 +44,7 @@ def c2b_confirm(request):
             page = None
             pledge = None
 
-            parts = account_no.split("#")
+            parts = account_no.split("FD")
 
             if len(parts) == 1:
                 account_no = parts[0]

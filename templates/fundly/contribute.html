@@ -106,19 +106,15 @@
                                 </div>
                     
                                 <div class="tab-pane fade" id="paybill" role="tabpanel" aria-labelledby="paybill-tab">
+                                    <h4>Make a Pledge</h4>
+                                    <p>Promise a contribution amount and fulfill it later.</p>
+                                    <form method="POST" action="{% url 'mchango:store_pledge' page.slug %}">
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <button type="submit" class="btn btn-success">Make Pledge</button>
+                                    </form>
                                 </div>
                             </div>
-                        </div>
-                    
-                        <!-- Pledge Tab -->
-                        <div class="tab-pane fade" id="pledge" role="tabpanel" aria-labelledby="pledge-tab">
-                            <h4>Make a Pledge</h4>
-                            <p>Promise a contribution amount and fulfill it later.</p>
-                            <form method="POST" action="{% url 'mchango:store_pledge' page.slug %}">
-                                {% csrf_token %}
-                                {{ form|crispy }}
-                                <button type="submit" class="btn btn-success">Make Pledge</button>
-                            </form>
                         </div>
                     </div>                    
                 </div>
