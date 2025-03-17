@@ -47,7 +47,9 @@ def contribute(request, slug):
             cl = MpesaClient()
             phone_number = request.POST.get('phone')
             amount = int(request.POST.get('amount'))
-            pledge_id = int(request.POST.get('pledge'))
+            pledge_id = request.POST.get('pledge')
+            if pledge_id:
+                pledge_id = int(pledge_id)
             account_no = f"{page.account_no}#{request.user.id}"
             if pledge_id:
                 account_no = f"{page.account_no}#{request.user.id}#{pledge_id}"
